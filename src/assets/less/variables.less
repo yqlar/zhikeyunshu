@@ -1,0 +1,64 @@
+:root {
+  --font-color-main: #333333;
+  --font-color-sub: #9E9E9E;
+  --background-color-main: #ffffff;
+
+  --primary-color: #1A8BFE;
+  --button-text-color: #ffffff;
+}
+
+html.theme-dark {
+  --font-color-main: #ffffff;
+}
+
+// font-size
+.font14 {
+  font-size: 14px;
+}
+
+.font16 {
+  font-size: 16px;
+}
+
+.font18 {
+  font-size: 18px;
+}
+
+.font20 {
+  font-size: 20px;
+}
+
+.font68 {
+  font-size: 68px;
+  font-weight: 800;
+}
+
+.borderOpacity02 {
+  border: 1px solid rgba(26, 139, 254, 0.2);
+}
+
+.borderWidth05Opacity02 {
+  border: 0.5px solid rgba(26, 139, 254, 0.2);
+}
+
+.textMulticolor {
+  background: linear-gradient(113deg, #1A8BFE 15%, #EBDB7E 101%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+// color
+@fontColorMain: var(--font-color-main);
+@backgroundColorMain: var(--background-color-main);
+@primaryColor: var(--primary-color);
+@buttonTextColor: var(--button-text-color);
+@fontColorSub: var(--font-color-sub);
+
+
+
+:export {
+  fontColorMain: @fontColorMain;
+  backgroundColorMain: @backgroundColorMain;
+}
