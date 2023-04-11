@@ -62,8 +62,12 @@ const HomePage: React.FC = () => {
             <div>Copy.ai helps</div>
             <div>business owners</div>
           </div>
-          <div className={less.t2}>Get better results in a fraction of the time.
-            Finally, a writing tool you’ll actually use.</div>
+          <div className={less.t2}>
+            Get better results in a fraction of the time.
+            Finally, a writing tool you’ll actually use.
+          </div>
+
+
         </Content>
         <Footer style={footerStyle}>Footer</Footer>
       </Layout>
