@@ -90,13 +90,30 @@
       flex-shrink: 0;
 
       .chatContent {
-        padding: 40px 40px 250px;
-        height: 100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        padding: 40px 40px 230px;
         overflow: hidden;
 
         .scrollContainer {
           height: 100%;
+          overflow-x: hidden;
+          overflow-y: scroll;
+
+          &::-webkit-scrollbar {
+            width: 0;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0);
+          }
+
+          &::-webkit-scrollbar-track {
+            background-color: rgba(0, 0, 0, 0);
+          }
         }
+
+
       }
 
       .input {
@@ -104,7 +121,9 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        padding: 32px 40px;
+        padding: 20px 40px 32px;
+        background-color: #ffffff;
+        box-shadow: 0 -20px 20px #fff;
       }
     }
 

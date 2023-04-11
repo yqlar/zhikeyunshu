@@ -12,6 +12,7 @@ import {ChatItem} from '@/interface/chat-item'
 
 const Chat: FC = () => {
   const [chatList, setChatList] = useState<ChatItem[]>([])
+  const [currentChat, setCurrentChat] = useState<ChatItem | null>(null);
   const [currentMenu, setCurrentMenu] = useState('chat');
   const items: MenuProps['items'] = [
     {
@@ -40,37 +41,43 @@ const Chat: FC = () => {
       type: 'question',
       content: d,
     }
-    const list = [...chatList, o]
 
-    setChatList(list)
-    getAiData(d, list)
+    if (currentChat) {
+      chatList.push(currentChat)
+      setCurrentChat(null)
+    }
+
+    chatList.push(o)
+    setChatList(chatList)
+    getAiData(d)
   }
 
-  const getAiData = (d, list) => {
+  const getAiData = (d) => {
     const t = new Date() + d
-    setTextStep(t, '', list)
+    setTextStep(t, '')
   }
 
-  const setTextStep = (t, content, list) => {
+  const setTextStep = (t, content) => {
     const l = content.length || 0
     const d = content + t.slice(l, l + 5)
     const tt = setTimeout(() => {
-      setChatList([...list, {
+      setCurrentChat({
           type: 'answer',
           content: d,
-        }])
+        })
 
-      if (d.length <= t.length) {
-        setTextStep(t, d, list)
+      if (d.length < t.length) {
+        setTextStep(t, d)
       }
+      console.log('-- 1: ', 1)
       clearTimeout(tt)
-    }, 200)
+    }, 100)
   }
 
   const list = () => {
     return <>
       {
-        [...chatList].map((item, i) => {
+        [...chatList, currentChat].map((item, i) => {
           return item && (
             <div key={i}>
               {item.type === 'question' ? <UserChatItem data={item.content}/> : <AIChatItem data={item.content}/>}
