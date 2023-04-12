@@ -36,7 +36,7 @@ const AIChatItem: FC<Props> = (props) => {
                   message.open({
                     type: 'success',
                     content: '复制成功',
-                    duration: 10,
+                    duration: 2,
                   })
                 }}
               >
