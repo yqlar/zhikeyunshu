@@ -130,8 +130,27 @@
     }
 
     .editContainer {
+      position: relative;
       width: 560px;
       border: 1px solid blue;
+      transition: all 0.5s ease;
+
+      .hideButton {
+        position: absolute;
+        top: 80px;
+        left: -26px;
+        width: 26px;
+        border-radius: 8px 0 0 8px;
+        padding: 16px 6px;
+        background: #1A8BFE;
+        color: #ffffff;
+        cursor: pointer;
+        font-size: 13px;
+      }
+    }
+
+    .zooWidth {
+      width: 0;
     }
   }
 }

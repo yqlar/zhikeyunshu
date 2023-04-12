@@ -20,6 +20,7 @@ const Chat: FC = () => {
   const scrollContainerRef = useRef(null)
   const scrollPlaceholder = useRef(null)
   const [loading, setLoading] = useState(false)
+  const [editVisible, setEditVisible] = useState(false)
   const {openTemplateModal} = useModel('chatModel')
 
   const items: MenuProps['items'] = [
@@ -131,10 +132,16 @@ const Chat: FC = () => {
               <ChatInput loading={loading} send={sendData}/>
             </div>
           </div>
-          <div className={less.editContainer}></div>
+
+          <div className={[less.editContainer, editVisible ? '' : less.zooWidth].join(' ')}>
+            <div className={less.hideButton} onClick={() => {
+                setEditVisible(!editVisible)
+            }}>
+              {editVisible ? '收起' : '编辑器'}
+            </div>
+          </div>
         </div>
       </div>
-
 
       <TemplatesModal/>
     </div>
