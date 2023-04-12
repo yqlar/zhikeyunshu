@@ -1,25 +1,36 @@
-import {FC, useState} from 'react'
+import {FC, useEffect, useState} from 'react'
 import {Button, Input} from 'antd'
 import less from './index.less'
 import promptIcon from '@/assets/img/prompt.svg'
 import sendIcon from '@/assets/img/send.svg'
+import {useModel} from 'umi'
 
 interface Props {
   send(t: string): void
+
+  loading: boolean
 }
 
 const {TextArea} = Input
 const ChatInput: FC<Props> = (props) => {
   const [chatContent, setChatContent] = useState('')
   const [disable, setDisable] = useState(true)
+  const {openTemplateModal} = useModel('chatModel')
+
+  useEffect(() => {
+    handelDisable(chatContent)
+  }, [props.loading])
 
   const inputChange = (e) => {
-    setDisable(e.target.value === '')
+    handelDisable(e.target.value)
     setChatContent(e.target.value)
   }
 
+  const handelDisable = (d) => {
+    setDisable(d === '' || props.loading)
+  }
   const sendData = () => {
-    if (chatContent !== '') {
+    if (!disable) {
       props.send(chatContent)
       setChatContent('')
       setDisable(true)
@@ -44,7 +55,9 @@ const ChatInput: FC<Props> = (props) => {
           onKeyDown={keyUpAction}
         />
         <div className={less.chatControl}>
-          <Button>
+          <Button onClick={() => {
+            openTemplateModal()
+          }}>
             <img src={promptIcon} alt=""/>
             <span>提示词库</span>
           </Button>

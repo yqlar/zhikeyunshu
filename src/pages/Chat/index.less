@@ -51,6 +51,12 @@
       }
     }
   }
+
+  .userHead {
+    position: absolute;
+    bottom: 40px;
+    left: 30px;
+  }
 }
 
 
@@ -66,14 +72,6 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-
-    .userHead {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: cornflowerblue;
-      cursor: pointer;
-    }
   }
 
   .chatAndEdit {
@@ -92,7 +90,7 @@
       .chatContent {
         width: 100%;
         height: calc(100vh - 80px);
-        padding: 40px 40px 230px;
+        padding: 0 40px 230px;
         overflow: hidden;
 
         .scrollContainer {
@@ -110,6 +108,10 @@
 
           &::-webkit-scrollbar-track {
             background-color: rgba(0, 0, 0, 0);
+          }
+
+          .scrollPlaceholder {
+            height: 250px;
           }
         }
 
