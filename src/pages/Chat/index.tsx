@@ -13,6 +13,7 @@ import UserInfo from '@/pages/Chat/components/UserInfo'
 import TemplatesModal from '@/pages/Chat/components/TemplatesModal'
 import {useModel} from 'umi'
 import RichEdit from '@/pages/Chat/components/RichEdit'
+import PriceModal from '@/components/PriceModal'
 
 const Chat: FC = () => {
   const [chatList, setChatList] = useState<ChatItem[]>([])
@@ -160,6 +161,7 @@ const Chat: FC = () => {
       </div>
 
       <TemplatesModal/>
+      <PriceModal/>
     </div>
   )
 }
