@@ -11,7 +11,8 @@ import UserChatItem from '@/pages/Chat/components/ChatItem/UserChatItem'
 import {ChatItem} from '@/interface/chat'
 import UserInfo from '@/pages/Chat/components/UserInfo'
 import TemplatesModal from '@/pages/Chat/components/TemplatesModal'
-import { useModel } from 'umi'
+import {useModel} from 'umi'
+import RichEdit from '@/pages/Chat/components/RichEdit'
 
 const Chat: FC = () => {
   const [chatList, setChatList] = useState<ChatItem[]>([])
@@ -22,6 +23,7 @@ const Chat: FC = () => {
   const [loading, setLoading] = useState(false)
   const [editVisible, setEditVisible] = useState(false)
   const {openTemplateModal} = useModel('chatModel')
+  const [editChat, setEditChat] = useState<ChatItem | null>(null)
 
   const items: MenuProps['items'] = [
     {
@@ -98,13 +100,24 @@ const Chat: FC = () => {
         [...chatList, currentChat].map((item, i) => {
           return item && (
             <div key={i}>
-              {item.type === 'question' ? <UserChatItem data={item.content}/> : <AIChatItem data={item.content}/>}
+              {item.type === 'question' ?
+                <UserChatItem data={item.content}/> :
+                <AIChatItem
+                  addToEditor={() => {
+                    setEditChat(item)
+                    const tt = setTimeout(() => {
+                      setEditChat(null)
+                      clearTimeout(tt)
+                    }, 100)
+                  }}
+                  data={item.content}/>}
             </div>
           )
         })
       }
     </>
   }
+
   return (
     <div className={less.page}>
       <div className={less.left}>
@@ -135,9 +148,12 @@ const Chat: FC = () => {
 
           <div className={[less.editContainer, editVisible ? '' : less.zooWidth].join(' ')}>
             <div className={less.hideButton} onClick={() => {
-                setEditVisible(!editVisible)
+              setEditVisible(!editVisible)
             }}>
               {editVisible ? '收起' : '编辑器'}
+            </div>
+            <div className={less.container} style={{display: editVisible ? '' : 'none'}}>
+              <RichEdit chat={editChat}/>
             </div>
           </div>
         </div>

@@ -9,6 +9,7 @@ import ChatLoading from '@/pages/Chat/components/ChatLoading'
 
 interface Props {
   data: string
+  addToEditor: () => void
 }
 
 const AIChatItem: FC<Props> = (props) => {
@@ -45,7 +46,7 @@ const AIChatItem: FC<Props> = (props) => {
                   <span>复制</span>
                 </div>
               </CopyToClipboard>
-              <div>
+              <div onClick={props.addToEditor}>
                 <img src={move} alt=""/>
                 <span>添加到编辑器</span>
               </div>

@@ -1,8 +1,6 @@
 .page {
   display: flex;
   justify-content: flex-start;
-
-
 }
 
 .left {
@@ -76,22 +74,22 @@
 
   .chatAndEdit {
     width: 100%;
-    height: calc(100% - 80px);
     display: flex;
     justify-content: flex-start;
+    height: calc(100vh - 80px);
 
     .chatContainer {
       position: relative;
       max-width: 760px;
+      min-width: 300px;
       width: 100%;
       margin: 0 auto;
-      flex-shrink: 0;
 
       .chatContent {
         width: 100%;
-        height: calc(100vh - 80px);
         padding: 0 40px 230px;
         overflow: hidden;
+        height: 100%;
 
         .scrollContainer {
           height: 100%;
@@ -114,8 +112,6 @@
             height: 250px;
           }
         }
-
-
       }
 
       .input {
@@ -131,9 +127,16 @@
 
     .editContainer {
       position: relative;
-      width: 560px;
-      border: 1px solid blue;
-      transition: all 0.5s ease;
+      min-width: 500px;
+      max-width: 800px;
+      height: 100%;
+      transition: all 0.3s ease;
+      border-left: 1px solid #EAEAEA;
+
+      .container {
+        overflow: hidden;
+        height: 100%;
+      }
 
       .hideButton {
         position: absolute;
@@ -151,6 +154,8 @@
 
     .zooWidth {
       width: 0;
+      min-width: 0;
+      max-width: 0;
     }
   }
 }
