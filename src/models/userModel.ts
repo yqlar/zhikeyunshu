@@ -2,7 +2,7 @@
 import {useState} from 'react'
 
 const userModel = () => {
-  const [priceModalVisible, setPriceModalVisible] = useState(true)
+  const [priceModalVisible, setPriceModalVisible] = useState(false)
 
   const openPriceModal = () => {
     setPriceModalVisible(true)
