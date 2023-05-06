@@ -4,3 +4,9 @@ export interface ChatItem {
   type: 'answer' | 'question'
   content: string
 }
+
+export interface AnswerItem {
+  msg_id: string
+  type: 'text'
+  data: string
+}

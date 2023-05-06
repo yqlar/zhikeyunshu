@@ -14,9 +14,12 @@ import TemplatesModal from '@/pages/Chat/components/TemplatesModal'
 import {useModel} from 'umi'
 import RichEdit from '@/pages/Chat/components/RichEdit'
 import PriceModal from '@/components/PriceModal'
+import {withAuth} from '@/hocs/withAuth'
+import {createChat, sendChatQuestion} from '@/services/api'
 
 const Chat: FC = () => {
   const [chatList, setChatList] = useState<ChatItem[]>([])
+  const [currentChatId, setCurrentChatId] = useState<number | null>(null)
   const [currentChat, setCurrentChat] = useState<ChatItem | null>(null)
   const [currentMenu, setCurrentMenu] = useState('chat')
   const scrollContainerRef = useRef(null)
@@ -51,19 +54,46 @@ const Chat: FC = () => {
     scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight
   }, [chatList.length])
 
-  const sendData = (d) => {
-    const o: ChatItem = {
-      type: 'question',
-      content: d,
-    }
-    if (currentChat) {
-      setCurrentChat(null)
+  const sendData = async (d) => {
+    let chatId = currentChatId || 0
+    if (currentChat === null) {
+      try {
+        const res = await createChat()
+        if (res?.chat_id) {
+          setCurrentChatId(res.chat_id)
+          chatId = res.chat_id
+          console.log('chatId:', chatId)
+        }
+      }catch (e) {
+        console.log('createChat error', e)
+      }
     }
 
-    chatList.push(o)
-    setChatList(chatList)
+    try {
+      const res = await sendChatQuestion({
+        chat_id: chatId,
+        text: d,
+        type: 'text',
+      })
+      console.log('res', res)
+    } catch (e) {
+      console.log('sendChatQuestion error', e)
+    }
 
-    getAiData(d)
+
+
+    // const o: ChatItem = {
+    //   type: 'question',
+    //   content: d,
+    // }
+    // if (currentChat) {
+    //   setCurrentChat(null)
+    // }
+    //
+    // chatList.push(o)
+    // setChatList(chatList)
+    //
+    // getAiData(d)
   }
 
   const getAiData = (d) => {
@@ -166,4 +196,4 @@ const Chat: FC = () => {
   )
 }
 
-export default Chat
+export default withAuth(Chat)

@@ -5,6 +5,8 @@ import less from './index.less'
 import HomePageHeader from '@/pages/Home/components/HomePageHeader'
 import TemplateEntry from '@/pages/Home/components/TemplateEntry'
 import partner from '@/assets/img/partner.png'
+import LoginModal from '@/components/LoginModal'
+import {withAuth} from '@/hocs/withAuth'
 
 const HomePage: React.FC = () => {
 
@@ -66,13 +68,12 @@ const HomePage: React.FC = () => {
             Get better results in a fraction of the time.
             Finally, a writing tool you’ll actually use.
           </div>
-
-
         </Content>
         <Footer style={footerStyle}>Footer</Footer>
+
       </Layout>
     </Space>
   )
 }
 
-export default HomePage
+export default withAuth(HomePage)

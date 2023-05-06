@@ -5,7 +5,9 @@ export default defineConfig({
   access: {},
   model: {},
   initialState: {},
-  request: {},
+  request: {
+    dataField: 'data'
+  },
   title: '智客云数AI助手',
   lessLoader: {
     modifyVars: {
@@ -45,5 +47,12 @@ export default defineConfig({
     },
   ],
   npmClient: 'yarn',
+  proxy: {
+    '/api': {
+      'target': 'https://mini.vcode.me/',
+      'changeOrigin': true,
+      'pathRewrite': { '^/api' : '' },
+    },
+  },
 })
 
