@@ -15,7 +15,6 @@ const TemplatesModal: FC = () => {
   const getTemplate = async () => {
     try {
       const res = await api.getTemplateList()
-      console.log('-- res: ', res)
       if (res?.length > 0) {
         const d = res.map(x => {
           return {
@@ -97,7 +96,6 @@ const TemplatesModal: FC = () => {
                      dangerouslySetInnerHTML={formatTemplateContent(currentTemplate?.content || '')}/>
                 <div className={less.control}>
                   <Button type="primary" size="large" onClick={() => {
-                    console.log('-- currentTemplate?.content: ', currentTemplate?.content)
                     changeTemplateContent(currentTemplate?.content)
                     closeTemplateModal()
                   }}>使用模版</Button>

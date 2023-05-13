@@ -32,7 +32,6 @@ const Chat: FC = () => {
         if (res?.chat_id) {
           setCurrentChatId(res.chat_id)
           chatId = res.chat_id
-          console.log('chatId:', chatId)
         }
       } catch (e) {
         console.log('createChat error', e)
@@ -91,6 +90,7 @@ const Chat: FC = () => {
           }
           const data = textDecoder.decode(value)
           const arr = data.split('data:')
+          console.log('-- data: ', arr)
 
           arr.forEach((x) => {
             if (x) {
@@ -181,7 +181,6 @@ const Chat: FC = () => {
   }
   useEffect(() => {
     const query = queryString.parse(history.location.search)
-    console.log('-- query: ', query)
     const {chat_id} = query
     if (chat_id) {
       setCurrentChatId(Number(chat_id))

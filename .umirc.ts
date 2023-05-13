@@ -37,12 +37,12 @@ export default defineConfig({
     },
   ],
   npmClient: 'yarn',
-  // proxy: {
-  //   '/api': {
-  //     'target': 'https://mini.vcode.me/',
-  //     'changeOrigin': true,
-  //     'pathRewrite': { '^/api' : '' },
-  //   },
-  // },
+  proxy: {
+    '/api': {
+      'target': 'https://mini.vcode.me/',
+      'changeOrigin': true,
+      'pathRewrite': { '^/api' : '' },
+    },
+  },
 })
 

@@ -42,7 +42,6 @@ const HomePageHeader: FC = () => {
   }
 
   const codeCallback = async (session_id: string) => {
-    console.log(session_id)
     const d = await api.scanCallback({session_id})
 
     if (d.code === '200') {
@@ -61,8 +60,6 @@ const HomePageHeader: FC = () => {
 
   const getWeiChatQRCode = async () => {
     const d = await api.getWeChatQRCode()
-    console.log('code', d.session_id)
-    console.log(d)
     if (d?.url) {
       setQrCodeUrl(d.url)
       codeCallback(d.session_id)

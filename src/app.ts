@@ -1,6 +1,5 @@
 import type {RequestConfig} from 'umi'
 
-console.log()
 export const request: RequestConfig = {
   // timeout: 10000,
   errorConfig: {
