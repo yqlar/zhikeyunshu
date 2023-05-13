@@ -51,7 +51,14 @@ const Chat: FC = () => {
     setChatList(chatList)
 
     setLoading(true)
-    fetch('/api/v1/chat/send_text', {
+
+    const url = '/v1/chat/send_text'
+    let u = 'https://mini.vcode.me' + url
+    if (process.env.NODE_ENV === 'development') {
+      u = '/api' + url
+    }
+
+    fetch(u, {
       headers: {
         'Accept': 'text/event-stream',
         'Content-Type': 'application/json',
