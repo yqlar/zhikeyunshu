@@ -53,7 +53,9 @@ const BasicLayout: FC = (props: Props) => {
     // 监听路由变化，改变 menu 的高亮
     history.listen(() => {
       const d = MentItems.find(x => x.path === history.location.pathname)
-      setCurrentMenu(d.key)
+      if (d?.key) {
+        setCurrentMenu(d?.key)
+      }
     })
   }, [])
 
