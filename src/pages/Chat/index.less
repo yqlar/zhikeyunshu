@@ -1,161 +1,91 @@
-.page {
+.chatAndEdit {
+  width: 100%;
   display: flex;
   justify-content: flex-start;
-}
+  height: calc(100vh - 80px);
 
-.left {
-  width: 300px;
-  height: 100vh;
-  padding-top: 30px;
-  background-color: #F9FCFF;
-  flex-shrink: 0;
-  border-right: 1px solid #EAEAEA;
-
-  .logo {
-    padding-left: 30px;
-  }
-
-  .menuIcon {
-    margin-right: 6px;
-  }
-
-  :global {
-    .ant-menu-item {
-      height: 50px;
-      width: 100%;
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      margin: 0;
-      padding-left: 40px;
-      background-color: #F9FCFF;
-    }
-
-    .ant-menu-item.ant-menu-item-selected {
-      position: relative;
-      background: none;
-      background-color: #F9FCFF;
-
-      &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translate(0, -50%);
-        width: 6px;
-        height: 38px;
-        border-radius: 0 4px 4px 0;
-        background: #1A8BFE
-      }
-    }
-  }
-
-  .userHead {
-    position: absolute;
-    bottom: 40px;
-    left: 30px;
-  }
-}
-
-
-.right {
-  width: 100%;
-  min-width: 560px;
-
-  .head {
+  .chatContainer {
+    position: relative;
+    max-width: 760px;
+    min-width: 300px;
     width: 100%;
-    height: 80px;
-    border-bottom: 1px solid #EAEAEA;
-    padding: 0 30px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-  }
+    margin: 0 auto;
 
-  .chatAndEdit {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    height: calc(100vh - 80px);
-
-    .chatContainer {
-      position: relative;
-      max-width: 760px;
-      min-width: 300px;
+    .chatContent {
       width: 100%;
-      margin: 0 auto;
+      padding: 0 40px 230px;
+      overflow: hidden;
+      height: 100%;
 
-      .chatContent {
-        width: 100%;
-        padding: 0 40px 230px;
-        overflow: hidden;
+      .scrollContainer {
         height: 100%;
+        overflow-x: hidden;
+        overflow-y: scroll;
 
-        .scrollContainer {
-          height: 100%;
-          overflow-x: hidden;
-          overflow-y: scroll;
+        .listHeaderPlaceholder {
+          width: 100%;
+          height: 10px;
+        }
 
-          &::-webkit-scrollbar {
-            width: 0;
-          }
+        &::-webkit-scrollbar {
+          width: 0;
+        }
 
-          &::-webkit-scrollbar-thumb {
-            background-color: rgba(0, 0, 0, 0);
-          }
+        &::-webkit-scrollbar-thumb {
+          background-color: rgba(0, 0, 0, 0);
+        }
 
-          &::-webkit-scrollbar-track {
-            background-color: rgba(0, 0, 0, 0);
-          }
+        &::-webkit-scrollbar-track {
+          background-color: rgba(0, 0, 0, 0);
+        }
 
-          .scrollPlaceholder {
-            height: 250px;
-          }
+        .scrollPlaceholder {
+          height: 250px;
         }
       }
-
-      .input {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        padding: 20px 40px 32px;
-        background-color: #ffffff;
-        box-shadow: 0 -20px 20px #fff;
-      }
     }
 
-    .editContainer {
-      position: relative;
-      min-width: 500px;
-      max-width: 800px;
+    .input {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px 40px 32px;
+      background-color: #ffffff;
+      box-shadow: 0 -20px 20px #fff;
+    }
+  }
+
+  .editContainer {
+    position: relative;
+    min-width: 500px;
+    max-width: 800px;
+    height: 100%;
+    transition: all 0.3s ease;
+    border-left: 1px solid #EAEAEA;
+
+    .container {
+      overflow: hidden;
       height: 100%;
-      transition: all 0.3s ease;
-      border-left: 1px solid #EAEAEA;
-
-      .container {
-        overflow: hidden;
-        height: 100%;
-      }
-
-      .hideButton {
-        position: absolute;
-        top: 80px;
-        left: -26px;
-        width: 26px;
-        border-radius: 8px 0 0 8px;
-        padding: 16px 6px;
-        background: #1A8BFE;
-        color: #ffffff;
-        cursor: pointer;
-        font-size: 13px;
-      }
     }
 
-    .zooWidth {
-      width: 0;
-      min-width: 0;
-      max-width: 0;
+    .hideButton {
+      position: absolute;
+      top: 80px;
+      left: -26px;
+      width: 26px;
+      border-radius: 8px 0 0 8px;
+      padding: 16px 6px;
+      background: #1A8BFE;
+      color: #ffffff;
+      cursor: pointer;
+      font-size: 13px;
     }
+  }
+
+  .zooWidth {
+    width: 0;
+    min-width: 0;
+    max-width: 0;
   }
 }

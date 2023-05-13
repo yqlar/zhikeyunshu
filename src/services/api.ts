@@ -61,7 +61,8 @@ export async function getDocDetail(
 // 保存右侧文档内容
 export async function saveDocDetail(
   data: {
-    chat_id: string
+    chat_id: number
+    content: string
   },
   options?: { [key: string]: any },
 ) {
@@ -73,11 +74,11 @@ export async function saveDocDetail(
 }
 
 // chat 历史
-export async function chatHistoryList(
+export async function getChatHistoryList(
   params: {
-    chat_id: string
+    chat_id: number
     page: number
-    latest_msg_id: string
+    latest_msg_id?: string
   },
   options?: { [key: string]: any },
 ) {
@@ -124,6 +125,7 @@ export async function sendChatQuestion(
   return request('/v1/chat/send_text', {
     method: 'POST',
     data,
+    responseType: 'stream',
     ...(options || {}),
   })
 }

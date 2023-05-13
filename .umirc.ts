@@ -45,14 +45,20 @@ export default defineConfig({
       layout: '@/layouts/index',
       component: '@/pages/Chat/index',
     },
+    {
+      path: '/chat-history',
+      name: '对话历史',
+      layout: '@/layouts/index',
+      component: '@/pages/ChatHistory/index',
+    },
   ],
   npmClient: 'yarn',
-  proxy: {
-    '/api': {
-      'target': 'https://mini.vcode.me/',
-      'changeOrigin': true,
-      'pathRewrite': { '^/api' : '' },
-    },
-  },
+  // proxy: {
+  //   '/api': {
+  //     'target': 'https://mini.vcode.me/',
+  //     'changeOrigin': true,
+  //     'pathRewrite': { '^/api' : '' },
+  //   },
+  // },
 })
 

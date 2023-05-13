@@ -1,0 +1,46 @@
+.list {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 15px;
+}
+
+
+.chatCard {
+  width: 332px;
+  height: 265px;
+  border-radius: 10px;
+  background: #FFFFFF;
+  border: 0.5px solid #999999;
+  margin: 15px;
+
+  cursor: pointer;
+
+  .title {
+    padding: 16px 18px;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 24px;
+    color: #333333;
+  }
+
+  .content {
+    padding: 20px 18px;
+    border-top: 0.5px solid #999999;
+    border-bottom: 0.5px solid #999999;
+    font-size: 14px;
+    line-height: 16px;
+    color: #AAAAAA;
+    height: calc(100% - 103px);
+  }
+
+  .footer {
+    padding: 12px 18px;
+    text-align: right;
+    cursor: default;
+
+    span {
+      cursor: pointer;
+    }
+  }
+}

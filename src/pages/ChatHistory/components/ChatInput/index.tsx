@@ -3,7 +3,7 @@ import {Button, Input} from 'antd'
 import less from './index.less'
 import promptIcon from '@/assets/img/prompt.svg'
 import sendIcon from '@/assets/img/send.svg'
-import {useModel, history} from 'umi'
+import {useModel} from 'umi'
 
 interface Props {
   send(t: string): void
@@ -15,16 +15,7 @@ const {TextArea} = Input
 const ChatInput: FC<Props> = (props) => {
   const [chatContent, setChatContent] = useState('')
   const [disable, setDisable] = useState(true)
-  const {openTemplateModal, templateContent, changeTemplateContent} = useModel('chatModel')
-
-  useEffect(() => {
-    if (templateContent) {
-      setChatContent(templateContent)
-      changeTemplateContent('')
-      setDisable(false)
-      history.push(`/chat`)
-    }
-  }, [templateContent])
+  const {openTemplateModal} = useModel('chatModel')
 
   useEffect(() => {
     handelDisable(chatContent)

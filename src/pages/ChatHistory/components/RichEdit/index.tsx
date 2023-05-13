@@ -1,30 +1,29 @@
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import React, {FC, useEffect, useState} from 'react'
 import {Editor, Toolbar} from '@wangeditor/editor-for-react'
-import {Boot, IDomEditor, IEditorConfig, IToolbarConfig} from '@wangeditor/editor'
+import {IDomEditor, IEditorConfig, IToolbarConfig} from '@wangeditor/editor'
 import less from './index.less'
 import {ChatItem} from '@/interface/chat'
+
+import { Boot } from '@wangeditor/editor'
 import markdownModule from '@wangeditor/plugin-md'
-import {saveDocDetail} from '@/services/api'
 
 
 interface Props {
   chat?: ChatItem | null
-  editVisible?: boolean
-  currentChatId?: number
 }
 
 const RichEdit: FC<Props> = (props) => {
-  const [editor, setEditor] = useState<IDomEditor | null>(null)
+  // editor 实例
+  const [editor, setEditor] = useState<IDomEditor | null>(null)   // TS 语法
   const [text, setText] = useState('')
   const [html, setHtml] = useState<string>('')
 
-
   // 工具栏配置
-  const toolbarConfig: Partial<IToolbarConfig> = {}
+  const toolbarConfig: Partial<IToolbarConfig> = {}  // TS 语法
 
   // 编辑器配置
-  const editorConfig: Partial<IEditorConfig> = {
+  const editorConfig: Partial<IEditorConfig> = {    // TS 语法
     placeholder: '请输入内容...',
   }
 
@@ -39,15 +38,6 @@ const RichEdit: FC<Props> = (props) => {
     }
   }, [props?.chat])
 
-  useEffect(() => {
-    if (props.editVisible && html !== '') {
-      saveDocDetail({
-        chat_id: props.currentChatId || 0,
-        content: html,
-      })
-    }
-  }, [html, props.editVisible])
-
   Boot.registerModule(markdownModule)
 
   return (
@@ -56,7 +46,7 @@ const RichEdit: FC<Props> = (props) => {
         editor={editor}
         defaultConfig={toolbarConfig}
         mode="default"
-        style={{borderBottom: '1px solid #ccc', maxHeight: '121px'}}
+        style={{borderBottom: '1px solid #ccc',maxHeight: '121px'}}
       />
       <Editor
         defaultConfig={editorConfig}
