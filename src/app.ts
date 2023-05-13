@@ -1,4 +1,4 @@
-import type { RequestConfig } from 'umi';
+import type {RequestConfig} from 'umi'
 
 console.log()
 export const request: RequestConfig = {
@@ -9,36 +9,15 @@ export const request: RequestConfig = {
     errorThrower(){
     },
   },
-  requestInterceptors: [
+  requestInterceptors: [(
     (url, options) => {
-    let u = 'https://mini.vcode.me' + url
-    if (process.env.NODE_ENV === 'development') {
-      u = '/api' + url
+      let u = 'https://mini.vcode.me' + url
+      if (process.env.NODE_ENV === 'development' || window.location.hostname.includes('vercel.app')) {
+        u = '/api' + url
+      }
+
+      return {url: u, options}
     }
-
-      // if (options.eventSource) {
-      //   console.log(111)
-      //   options.adapter = (config) => {
-      //     console.log('config.url', config.url)
-      //     console.log(config)
-      //     return new Promise((resolve) => {
-      //       const source = new EventSource(config.url, {
-      //         withCredentials: true,
-      //         headers: config.headers,
-      //       })
-      //       source.onmessage = function (event) {
-      //         resolve({
-      //           data: event.data,
-      //           status: 200,
-      //         })
-      //       }
-      //     })
-      //   }
-      // }
-
-      return { url: u, options }
-    },
-  ],
+  )],
   responseInterceptors: [],
-
 };

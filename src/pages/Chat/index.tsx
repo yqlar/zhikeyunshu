@@ -54,7 +54,7 @@ const Chat: FC = () => {
 
     const url = '/v1/chat/send_text'
     let u = 'https://mini.vcode.me' + url
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development' || window.location.hostname.includes('vercel.app')) {
       u = '/api' + url
     }
 
