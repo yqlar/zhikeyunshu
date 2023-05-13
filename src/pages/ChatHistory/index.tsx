@@ -5,7 +5,6 @@ import less from './index.less'
 import {history} from 'umi'
 
 const ChatHistory: FC = () => {
-
   const [chatList, setChatList] = useState([])
 
   useEffect(() => {
@@ -22,7 +21,7 @@ const ChatHistory: FC = () => {
 
   return (
     <div className={less.list}>{
-      chatList.map((item) => (
+      chatList?.length > 0 && chatList.map((item) => (
         <div className={less.chatCard} key={item.id} onClick={() => {
           handlerCardClick(item.id)
         }}>
