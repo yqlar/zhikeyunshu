@@ -39,18 +39,18 @@ const RichEdit: FC<Props> = (props) => {
     }
   }, [props?.chat])
 
+
+  Boot.registerModule(markdownModule)
+
   useEffect(() => {
     if (props.editVisible && html !== '') {
       saveDocDetail({
         chat_id: props.currentChatId || 0,
         content: html,
-        title: ''
+        title: '',
       })
     }
   }, [html, props.editVisible])
-
-  Boot.registerModule(markdownModule)
-
   return (
     <div className={less.richEdit}>
       <Toolbar
