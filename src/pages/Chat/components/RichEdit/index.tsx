@@ -44,6 +44,7 @@ const RichEdit: FC<Props> = (props) => {
       saveDocDetail({
         chat_id: props.currentChatId || 0,
         content: html,
+        title: ''
       })
     }
   }, [html, props.editVisible])

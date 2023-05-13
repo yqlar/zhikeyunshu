@@ -17,26 +17,10 @@ export default defineConfig({
     },
   },
   routes: [
-    // {
-    //   path: '/',
-    //   component: '@/layouts/index',
-    //   routes: [
-    //     {
-    //       path: '',
-    //       name: '首页',
-    //       component: '@/pages/Home/index',
-    //     },
-    //     {
-    //       path: '/chat',
-    //       name: '对话',
-    //       component: '@/pages/Chat/index',
-    //     },
-    //   ],
-    // },
     {
       path: '/',
       name: '首页',
-      layout: '@/layouts/index',
+      layout: false,
       component: '@/pages/Home/index',
     },
     {

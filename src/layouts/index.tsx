@@ -1,21 +1,16 @@
 import {FC, useEffect, useState} from 'react'
-import {ConnectProps} from 'react-redux'
 import less from '@/layouts/index.less'
-import {Outlet} from 'umi'
+import {history, Outlet, useModel} from 'umi'
 import Logo from '@/components/logo'
 import UserInfo from '@/pages/Chat/components/UserInfo'
-import AddMember from '@/pages/Chat/components/AddMember'
 import TemplatesModal from '@/pages/Chat/components/TemplatesModal'
 import PriceModal from '@/components/PriceModal'
 import ImgChat from '@/assets/img/chat.svg'
 import ImgTemplate from '@/assets/img/template.svg'
 import ImgHistory from '@/assets/img/history.svg'
 import {Menu, MenuProps} from 'antd'
-import {history, useModel} from 'umi'
 
-type Props = ConnectProps
-
-const BasicLayout: FC = (props: Props) => {
+const BasicLayout: FC = () => {
   const [currentMenu, setCurrentMenu] = useState('chat')
   const {openTemplateModal} = useModel('chatModel')
 
@@ -42,12 +37,10 @@ const BasicLayout: FC = (props: Props) => {
   const menuAction = (d) => {
     if (d.key !== 'templates') {
       history.push(d.item.props.path)
-      // setCurrentMenu(d.key)
     } else {
       openTemplateModal()
     }
   }
-
 
   useEffect(() => {
     // 监听路由变化，改变 menu 的高亮
@@ -76,14 +69,10 @@ const BasicLayout: FC = (props: Props) => {
         </div>
         <Outlet/>
       </div>
-
       <TemplatesModal/>
       <PriceModal/>
     </div>
-
-
   </div>
-
 }
 
 export default BasicLayout

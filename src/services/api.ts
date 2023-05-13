@@ -63,6 +63,7 @@ export async function saveDocDetail(
   data: {
     chat_id: number
     content: string
+    title: string
   },
   options?: { [key: string]: any },
 ) {
