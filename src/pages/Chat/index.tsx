@@ -5,10 +5,10 @@ import AIChatItem from '@/pages/Chat/components/ChatItem/AIChatItem'
 import UserChatItem from '@/pages/Chat/components/ChatItem/UserChatItem'
 import {ChatItem} from '@/interface/chat'
 import RichEdit from '@/pages/Chat/components/RichEdit'
-import {withAuth} from '@/hocs/withAuth'
 import {createChat, getChatHistoryList} from '@/services/api'
 import queryString from 'query-string'
 import {history, useModel} from 'umi'
+import {Auth} from '@/wrappers/auth'
 
 const Chat: FC = () => {
   const {templateContent} = useModel('chatModel')
@@ -226,4 +226,4 @@ const Chat: FC = () => {
   )
 }
 
-export default withAuth(Chat)
+export default Auth(Chat)

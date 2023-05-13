@@ -1,6 +1,6 @@
 import {FC, useEffect, useState} from 'react'
 import less from '@/layouts/index.less'
-import {history, Outlet, useModel} from 'umi'
+import {history, Outlet, useLocation, useModel} from 'umi'
 import Logo from '@/components/logo'
 import UserInfo from '@/pages/Chat/components/UserInfo'
 import TemplatesModal from '@/pages/Chat/components/TemplatesModal'
@@ -13,7 +13,7 @@ import {Menu, MenuProps} from 'antd'
 const BasicLayout: FC = () => {
   const [currentMenu, setCurrentMenu] = useState('chat')
   const {openTemplateModal} = useModel('chatModel')
-
+  const location = useLocation()
   const MentItems: MenuProps['items'] = [
     {
       label: '对话',
@@ -51,6 +51,10 @@ const BasicLayout: FC = () => {
       }
     })
   }, [])
+
+  if (location.pathname === '/') {
+    return <Outlet/>
+  }
 
   return <div className={less.layout}>
     <div className={less.page}>

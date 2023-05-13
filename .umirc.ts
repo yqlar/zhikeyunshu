@@ -20,7 +20,7 @@ export default defineConfig({
     {
       path: '/',
       name: '首页',
-      layout: false,
+      layout: '@/layouts/index',
       component: '@/pages/Home/index',
     },
     {

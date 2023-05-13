@@ -6,7 +6,7 @@ import HomePageHeader from '@/pages/Home/components/HomePageHeader'
 import TemplateEntry from '@/pages/Home/components/TemplateEntry'
 import partner from '@/assets/img/partner.png'
 import LoginModal from '@/components/LoginModal'
-import {withAuth} from '@/hocs/withAuth'
+import {Auth} from '@/wrappers/auth'
 
 const HomePage: React.FC = () => {
 
@@ -76,4 +76,4 @@ const HomePage: React.FC = () => {
   )
 }
 
-export default withAuth(HomePage)
+export default HomePage

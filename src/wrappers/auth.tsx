@@ -1,7 +1,7 @@
 import {Navigate} from 'umi'
 import {getLocalStorage} from '@/utils/localCache'
 
-export const withAuth = (Component) => () => {
+export const Auth = (Component) => () => {
   const isLogin = getLocalStorage('isLogin')
   if (isLogin) {
     if (Component.name !== 'HomePage') {

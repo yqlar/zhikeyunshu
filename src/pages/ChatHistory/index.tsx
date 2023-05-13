@@ -1,5 +1,5 @@
 import {FC, useEffect, useState} from 'react'
-import {withAuth} from '@/hocs/withAuth'
+import {Auth} from '@/wrappers/auth'
 import {getChatList} from '@/services/api'
 import less from './index.less'
 import {history} from 'umi'
@@ -44,4 +44,4 @@ const ChatHistory: FC = () => {
   )
 }
 
-export default withAuth(ChatHistory)
+export default Auth(ChatHistory)
