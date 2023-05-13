@@ -30,6 +30,7 @@ module.exports = (req, res) => {
   }
   // 创建代理对象并转发请求
   createProxyMiddleware({
+    compress: true,
     target,
     changeOrigin: true,
     pathRewrite: {
