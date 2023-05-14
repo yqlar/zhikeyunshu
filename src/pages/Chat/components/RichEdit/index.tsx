@@ -5,7 +5,7 @@ import {Boot, IDomEditor, IEditorConfig, IToolbarConfig} from '@wangeditor/edito
 import less from './index.less'
 import {ChatItem} from '@/interface/chat'
 import markdownModule from '@wangeditor/plugin-md'
-import {saveDocDetail} from '@/services/api'
+import {getDocDetail, saveDocDetail} from '@/services/api'
 
 
 interface Props {
@@ -51,6 +51,18 @@ const RichEdit: FC<Props> = (props) => {
       })
     }
   }, [html, props.editVisible])
+  
+  useEffect(() => {
+      if (props.currentChatId) {
+        getDocDetail({
+          chat_id: Number(props.currentChatId),
+        }).then((res) => {
+          console.log('-- res: ', res)
+          // setHtml(`<p>${res}</p>`)
+        })
+      }
+  }, [props.currentChatId])
+
   return (
     <div className={less.richEdit}>
       <Toolbar

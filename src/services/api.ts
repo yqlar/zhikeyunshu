@@ -47,7 +47,7 @@ export async function getTemplateList(
 // 获取右侧文档内容
 export async function getDocDetail(
   params: {
-    chat_id: string
+    chat_id: number
   },
   options?: { [key: string]: any },
 ) {

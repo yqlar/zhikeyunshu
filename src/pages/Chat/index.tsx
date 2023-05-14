@@ -5,7 +5,7 @@ import AIChatItem from '@/pages/Chat/components/ChatItem/AIChatItem'
 import UserChatItem from '@/pages/Chat/components/ChatItem/UserChatItem'
 import {ChatItem} from '@/interface/chat'
 import RichEdit from '@/pages/Chat/components/RichEdit'
-import {createChat, getChatHistoryList} from '@/services/api'
+import {createChat, getChatHistoryList, getDocDetail} from '@/services/api'
 import queryString from 'query-string'
 import {history, useModel} from 'umi'
 import {Auth} from '@/wrappers/auth'
@@ -179,12 +179,14 @@ const Chat: FC = () => {
     setChatList([])
     setChatPage(0)
   }
+
   useEffect(() => {
     const query = queryString.parse(history.location.search)
     const {chat_id} = query
     if (chat_id) {
       setCurrentChatId(Number(chat_id))
       getHistory(chat_id)
+      // getRichEdit(chat_id)
     } else {
       resetChat()
     }
