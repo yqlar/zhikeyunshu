@@ -114,19 +114,29 @@ export async function createChat(
   })
 }
 
+// // 发送问题
+// export async function sendChatQuestion(
+//   data:{
+//     text: string,
+//     type: 'text',
+//     chat_id: number
+//   },
+//   options?: { [key: string]: any },
+// ) {
+//   return request('/v1/chat/send_text', {
+//     method: 'POST',
+//     data,
+//     responseType: 'stream',
+//     ...(options || {}),
+//   })
+// }
+
 // 发送问题
-export async function sendChatQuestion(
-  data:{
-    text: string,
-    type: 'text',
-    chat_id: number
-  },
+export async function userLogout(
   options?: { [key: string]: any },
 ) {
-  return request('/v1/chat/send_text', {
+  return request('/v1/user/logout', {
     method: 'POST',
-    data,
-    responseType: 'stream',
     ...(options || {}),
   })
 }

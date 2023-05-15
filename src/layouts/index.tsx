@@ -9,6 +9,7 @@ import ImgChat from '@/assets/img/chat.svg'
 import ImgTemplate from '@/assets/img/template.svg'
 import ImgHistory from '@/assets/img/history.svg'
 import {Menu, MenuProps} from 'antd'
+import {userLogout} from '@/services/api'
 
 const BasicLayout: FC = () => {
   const [currentMenu, setCurrentMenu] = useState('chat')
@@ -42,13 +43,18 @@ const BasicLayout: FC = () => {
     }
   }
 
+  const initMenuSelect = () => {
+    const d = MentItems.find(x => x.path === history.location.pathname)
+    if (d?.key) {
+      setCurrentMenu(d?.key)
+    }
+  }
+
   useEffect(() => {
+    initMenuSelect()
     // 监听路由变化，改变 menu 的高亮
     history.listen(() => {
-      const d = MentItems.find(x => x.path === history.location.pathname)
-      if (d?.key) {
-        setCurrentMenu(d?.key)
-      }
+      initMenuSelect()
     })
   }, [])
 

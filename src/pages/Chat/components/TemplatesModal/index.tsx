@@ -1,35 +1,40 @@
 import {FC, useEffect, useState} from 'react'
-import {Input, Menu, Modal, Button} from 'antd'
+import {Button, Menu, Modal} from 'antd'
 import less from './index.less'
-import {SearchOutlined} from '@ant-design/icons'
-import {useModel} from 'umi'
+import {useModel, history} from 'umi'
 import * as api from '@/services/api'
 
 const TemplatesModal: FC = () => {
   const {templateModalVisible, closeTemplateModal, changeTemplateContent} = useModel('chatModel')
-  const [disable, setDisable] = useState(true)
   const [templateList, setTemplateList] = useState([])
   const [currentTemplateList, setCurrentTemplateList] = useState([])
   const [currentTemplate, setCurrentTemplate] = useState(null)
+  const [firstListKey, setFirstListKey] = useState('')
+  const [secondListKey, setSecondListKey] = useState('')
+
+  const formatMenuData = (list) => {
+    return list.map(x => {
+      return {
+        key: x.id,
+        label: x.title || x.name,
+        ...x,
+      }
+    })
+  }
 
   const getTemplate = async () => {
     try {
       const res = await api.getTemplateList()
       if (res?.length > 0) {
-        const d = res.map(x => {
-          return {
-            key: x.id,
-            label: x.name,
-            ...x,
-          }
-        })
+        const d = formatMenuData(res)
+        setFirstListKey(String(d[0].key))
         setTemplateList(d)
+        firstMenuAction(d[0].details)
       }
     } catch (e) {
       console.log(e)
     }
   }
-
 
   useEffect(() => {
     if (templateModalVisible) {
@@ -37,19 +42,11 @@ const TemplatesModal: FC = () => {
     }
   }, [templateModalVisible])
 
-  const firstMenuAction = (d) => {
-    const list = d.item.props?.details?.map(x => {
-      return {
-        key: x.id,
-        label: x.title,
-        ...x,
-      }
-    })
+  const firstMenuAction = (details) => {
+    const list = formatMenuData(details)
+    setSecondListKey(String(list[0].key))
     setCurrentTemplateList(list)
-  }
-
-  const secondMenuAction = (d) => {
-    setCurrentTemplate(d.item.props)
+    setCurrentTemplate(list[0])
   }
 
   const formatTemplateContent = (content) => {
@@ -78,12 +75,19 @@ const TemplatesModal: FC = () => {
         </div>
         <div className={less.templateList}>
           <div className={less.left}>
-            <Menu className={less.menu} items={templateList} onClick={firstMenuAction}/>
+            <Menu className={less.menu} items={templateList} onSelect={(d) => {
+              setFirstListKey(String(d.key))
+              firstMenuAction(d.item.props?.details)
+            }} selectedKeys={[firstListKey]}/>
           </div>
           <div className={less.left}>
             {
               currentTemplateList?.length > 0 &&
-              <Menu className={less.menu} items={currentTemplateList} onClick={secondMenuAction}/>
+              <Menu className={less.menu} items={currentTemplateList} onSelect={(d) => {
+                setSecondListKey(String(d.key))
+                setCurrentTemplate(d.item.props)
+              }}
+                    selectedKeys={[secondListKey]}/>
             }
           </div>
           <div className={less.right}>
@@ -96,6 +100,7 @@ const TemplatesModal: FC = () => {
                      dangerouslySetInnerHTML={formatTemplateContent(currentTemplate?.content || '')}/>
                 <div className={less.control}>
                   <Button type="primary" size="large" onClick={() => {
+                    history.push('/chat')
                     changeTemplateContent(currentTemplate?.content)
                     closeTemplateModal()
                   }}>使用模版</Button>

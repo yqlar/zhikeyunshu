@@ -51,7 +51,7 @@ const RichEdit: FC<Props> = (props) => {
       })
     }
   }, [html, props.editVisible])
-  
+
   useEffect(() => {
       if (props.currentChatId) {
         getDocDetail({
