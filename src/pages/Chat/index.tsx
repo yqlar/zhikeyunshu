@@ -5,7 +5,7 @@ import AIChatItem from '@/pages/Chat/components/ChatItem/AIChatItem'
 import UserChatItem from '@/pages/Chat/components/ChatItem/UserChatItem'
 import {ChatItem} from '@/interface/chat'
 import RichEdit from '@/pages/Chat/components/RichEdit'
-import {createChat, getChatHistoryList, getDocDetail} from '@/services/api'
+import {createChat, getChatHistoryList} from '@/services/api'
 import queryString from 'query-string'
 import {history, useModel} from 'umi'
 import {Auth} from '@/wrappers/auth'
@@ -23,6 +23,8 @@ const Chat: FC = () => {
   const [editVisible, setEditVisible] = useState(false)
   const [editChat, setEditChat] = useState<ChatItem | null>(null)
   const [chatPage, setChatPage] = useState(1)
+  const query = queryString.parse(history.location.search)
+  const {chat_id} = query
 
   const sendData = async (d) => {
     let chatId = currentChatId
@@ -52,7 +54,7 @@ const Chat: FC = () => {
     setLoading(true)
 
     const url = '/v1/chat/send_text'
-    let u = 'https://mini.vcode.me' + url
+    let u = 'http://mini.vcode.me' + url
     if (process.env.NODE_ENV === 'development' || window.location.hostname.includes('vercel.app')) {
       u = '/api' + url
     }
@@ -165,12 +167,20 @@ const Chat: FC = () => {
 
 
   useEffect(() => {
-    scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight
+    setTimeout(() => {
+      if (scrollPlaceholder?.current.scrollIntoView) {
+        scrollPlaceholder.current.scrollIntoView({
+          behavior: 'smooth',
+        })
+      } else {
+        scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight
+      }
+    }, 0)
   }, [chatList.length])
 
   useEffect(() => {
-    if (historyLoading) {
-      getHistory(currentChatId)
+    if (chat_id && historyLoading) {
+      getHistory(chat_id)
     }
   }, [historyLoading])
 
@@ -181,8 +191,6 @@ const Chat: FC = () => {
   }
 
   useEffect(() => {
-    const query = queryString.parse(history.location.search)
-    const {chat_id} = query
     if (chat_id) {
       setCurrentChatId(Number(chat_id))
       getHistory(chat_id)
@@ -212,7 +220,7 @@ const Chat: FC = () => {
           <div className={less.scrollContainer} ref={scrollContainerRef}>
             <div className={less.listHeaderPlaceholder}/>
             {list()}
-            <div className={less.scrollPlaceholder} ref={scrollPlaceholder}></div>
+            <a className={less.scrollPlaceholder} ref={scrollPlaceholder}></a>
           </div>
         </div>
         <div className={less.input}>

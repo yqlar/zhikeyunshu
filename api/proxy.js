@@ -26,7 +26,7 @@ module.exports = (req, res) => {
   let target = ''
 
   if (req.url.startsWith('/api')) {
-    target = 'https://mini.vcode.me'
+    target = 'http://mini.vcode.me'
   }
   // 创建代理对象并转发请求
   createProxyMiddleware({

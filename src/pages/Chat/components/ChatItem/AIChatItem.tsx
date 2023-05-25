@@ -6,6 +6,11 @@ import move from '@/assets/img/move.svg'
 import {CopyToClipboard} from 'react-copy-to-clipboard'
 import {message} from 'antd'
 import ChatLoading from '@/pages/Chat/components/ChatLoading'
+import ReactMarkdown from 'react-markdown'
+import SyntaxHighlighter from 'react-syntax-highlighter'
+import {atomOneDark as hljsStyle} from 'react-syntax-highlighter/dist/esm/styles/hljs'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
 
 interface Props {
   data: string
@@ -28,7 +33,29 @@ const AIChatItem: FC<Props> = (props) => {
         {
           loading ? <ChatLoading/> : <>
             <div className={less.text}>
-              {props.data}
+              <ReactMarkdown
+                children={props.data}
+                remarkPlugins={[remarkMath]}
+                rehypePlugins={[rehypeKatex]}
+                components={{
+                  code({inline, className, children}) {
+                    const match = /language-(\w+)/.exec(className || '')
+                    return !inline ? (
+                      <SyntaxHighlighter
+                        showLineNumbers={true}
+                        lineNumberStyle={{color: '#ddd', fontSize: 10}}
+                        children={String(children).replace(/\n$/, '')}
+                        style={hljsStyle}
+                        wrapLines={true}
+                        language={match?.[1] || 'text'}
+                      />
+                    ) : (
+                      <code>
+                        {children}
+                      </code>
+                    )
+                  },
+                }}/>
             </div>
             <div className={less.control}>
               <CopyToClipboard

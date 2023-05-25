@@ -19,17 +19,23 @@
     "@wangeditor/plugin-md": "^1.0.0",
     "antd": "^5.0.0",
     "qs": "^6.11.1",
-    "react-copy-to-clipboard": "^5.0.3"
+    "react-copy-to-clipboard": "^5.0.3",
+    "react-markdown": "^8.0.7",
+    "react-syntax-highlighter": "^15.5.0",
+    "rehype-katex": "^6.0.3",
+    "remark-gfm": "^3.0.1",
+    "remark-math": "^5.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "deploy-cli-service": "^1.4.0",
+    "http-proxy-middleware": "2.0.6",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "prettier-plugin-organize-imports": "^2",
     "prettier-plugin-packagejson": "^2",
-    "typescript": "^5.0.0",
-    "http-proxy-middleware": "2.0.6"
+    "typescript": "^5.0.0"
   }
 }

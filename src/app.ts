@@ -10,7 +10,7 @@ export const request: RequestConfig = {
   },
   requestInterceptors: [(
     (url, options) => {
-      let u = 'https://mini.vcode.me' + url
+      let u = 'http://mini.vcode.me' + url
       if (process.env.NODE_ENV === 'development' || window.location.hostname.includes('vercel.app')) {
         u = '/api' + url
       }
