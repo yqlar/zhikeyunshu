@@ -63,6 +63,7 @@ const TemplatesModal: FC = () => {
   return (
     <Modal className={less.modal} width={1100} bodyStyle={{height: '70vh'}} open={templateModalVisible} footer={null}
            maskClosable={true}
+           destroyOnClose={true}
            onCancel={(() => {
              closeTemplateModal()
            })}>
