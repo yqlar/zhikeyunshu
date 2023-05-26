@@ -53,7 +53,7 @@ const TemplatesModal: FC = () => {
     var reg = /\[([^\]]+)\]/g
     var arr = content.match(reg)
     let d = content
-    arr.forEach((x) => {
+    arr?.forEach((x) => {
       d = d.replaceAll(x, `<span>${x}</span>`)
     })
 

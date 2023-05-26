@@ -35,36 +35,38 @@ const ChatHistory: FC = () => {
   }
 
   return (
-    <div className={less.list}>{
-      chatList?.length > 0 && chatList.map((item) => (
-        <div className={less.chatCard} key={item.id} onClick={() => {
-          handlerCardClick(item.id)
-        }}>
-          <div className={less.title}>
-            {item.title}
-          </div>
-          <div className={less.content}>
-            {item.created_at} <br/>
-            {item.id}
-          </div>
-          <div className={less.footer} onClick={(e) => {
-            e.stopPropagation()
+    <div class={less.container}>
+      <div className={less.list}>{
+        chatList?.length > 0 && chatList.map((item) => (
+          <div className={less.chatCard} key={item.id} onClick={() => {
+            handlerCardClick(item.id)
           }}>
-            <Popconfirm
-              placement="top"
-              title={'是否关闭对话？'}
-              onConfirm={() => {
-                delConfirm(item)
-              }}
-              okText="Yes"
-              cancelText="No"
-            >
-              <span>...</span>
-            </Popconfirm>
+            <div className={less.title}>
+              {item.title}
+            </div>
+            <div className={less.content}>
+              {item.created_at} <br/>
+              {item.id}
+            </div>
+            <div className={less.footer} onClick={(e) => {
+              e.stopPropagation()
+            }}>
+              <Popconfirm
+                placement="top"
+                title={'是否关闭对话？'}
+                onConfirm={() => {
+                  delConfirm(item)
+                }}
+                okText="Yes"
+                cancelText="No"
+              >
+                <span>...</span>
+              </Popconfirm>
+            </div>
           </div>
-        </div>
-      ))
-    }</div>
+        ))
+      }</div>
+    </div>
   )
 }
 

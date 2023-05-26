@@ -11,7 +11,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter'
 import {atomOneDark as hljsStyle} from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
-
+import remarkGfm from 'remark-gfm'
 interface Props {
   data: string
   addToEditor: () => void
@@ -32,10 +32,10 @@ const AIChatItem: FC<Props> = (props) => {
       <div className={[less.content, less.bc].join(' ')}>
         {
           loading ? <ChatLoading/> : <>
-            <div className={less.text}>
+            <div className={less.markdown}>
               <ReactMarkdown
                 children={props.data}
-                remarkPlugins={[remarkMath]}
+                remarkPlugins={[remarkMath, remarkGfm]}
                 rehypePlugins={[rehypeKatex]}
                 components={{
                   code({inline, className, children}) {
