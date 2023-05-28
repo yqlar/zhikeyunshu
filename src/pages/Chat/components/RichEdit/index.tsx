@@ -1,7 +1,7 @@
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
 import React, {FC, useEffect, useRef, useState} from 'react'
-import {Editor, Toolbar} from '@wangeditor/editor-for-react'
-import {Boot, IDomEditor, IEditorConfig, IToolbarConfig} from '@wangeditor/editor'
+import { Editor, Toolbar} from '@wangeditor/editor-for-react'
+import { Boot, IDomEditor, IEditorConfig, IToolbarConfig} from '@wangeditor/editor'
 import less from './index.less'
 import {ChatItem} from '@/interface/chat'
 import markdownModule from '@wangeditor/plugin-md'
@@ -32,7 +32,9 @@ const RichEdit: FC<Props> = (props) => {
   }, 5000))
 
   // 工具栏配置
-  const toolbarConfig: Partial<IToolbarConfig> = {}
+  const toolbarConfig: Partial<IToolbarConfig> = {
+    excludeKeys: ['group-image', 'group-video', 'emotion', 'todo', 'insertLink']
+  }
 
   // 编辑器配置
   const editorConfig: Partial<IEditorConfig> = {
@@ -49,6 +51,12 @@ const RichEdit: FC<Props> = (props) => {
       const h = editor?.getText() === '' ? '' : html
       setHtml(h + `<p>${props.chat.content}</p>`)
     }
+
+    if (props.editVisible) {
+      const curToolbarConfig = editor.getConfig()
+      console.log( curToolbarConfig )
+    }
+
   }, [props?.chat])
 
   Boot.registerModule(markdownModule)
@@ -60,7 +68,7 @@ const RichEdit: FC<Props> = (props) => {
   }, [html, title])
 
   useEffect(() => {
-    if (props.currentChatTitle && title === '') {
+    if (props.currentChatTitle && !title) {
       setTitle(props.currentChatTitle)
     }
   }, [props.currentChatTitle])

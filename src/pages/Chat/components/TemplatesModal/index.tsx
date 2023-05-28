@@ -69,7 +69,7 @@ const TemplatesModal: FC = () => {
            })}>
       <div className={less.modalContent}>
         <div className={less.title}>
-          <span>Templates</span>
+          <span>模版中心</span>
           <div className={less.input}>
             {/*<Input size="large" placeholder="Try Blog Email" prefix={<SearchOutlined width={24}/>}/>*/}
           </div>

@@ -1,16 +1,26 @@
-import type {RequestConfig} from 'umi'
+import type {RequestConfig, RequestOptionsInit} from 'umi'
+import {getHost, logout} from '@/utils'
+
+const demoResponseInterceptors = (response: Response, options: RequestOptionsInit) => {
+  if (response?.data?.code === '700') {
+    logout()
+  }
+  return response
+}
+
 
 export const request: RequestConfig = {
   // timeout: 10000,
   errorConfig: {
-    errorHandler(){
+    errorHandler() {
     },
-    errorThrower(){
+    errorThrower() {
     },
   },
   requestInterceptors: [(
     (url, options) => {
-      let u = 'http://mini.vcode.me' + url
+
+      let u = getHost() + url
       if (process.env.NODE_ENV === 'development' || window.location.hostname.includes('vercel.app')) {
         u = '/api' + url
       }
@@ -18,5 +28,5 @@ export const request: RequestConfig = {
       return {url: u, options}
     }
   )],
-  responseInterceptors: [],
+  responseInterceptors: [demoResponseInterceptors],
 };

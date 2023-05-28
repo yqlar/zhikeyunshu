@@ -1,11 +1,14 @@
 // 全局共享数据示例
 import {useState} from 'react'
+import {isLogin} from '@/utils'
 
 const chatModel = () => {
   const [templateModalVisible, setTemplateModalVisible] = useState(false)
   const [templateContent, setTemplateContent] = useState('')
   const openTemplateModal = () => {
-    setTemplateModalVisible(true)
+    if (isLogin()) {
+      setTemplateModalVisible(true)
+    }
   }
   const closeTemplateModal = () => {
     setTemplateModalVisible(false)

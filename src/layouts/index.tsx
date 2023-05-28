@@ -57,10 +57,10 @@ const BasicLayout: FC = () => {
       initMenuSelect()
     })
   }, [])
-
-  if (location.pathname === '/') {
-    return <Outlet/>
-  }
+  //
+  // if (location.pathname === '/') {
+  //   return <Outlet/>
+  // }
 
   return <div className={less.layout}>
     <div className={less.page}>

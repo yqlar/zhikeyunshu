@@ -9,6 +9,7 @@ import {createChat, genTitle, getChatHistoryList} from '@/services/api'
 import queryString from 'query-string'
 import {history, useModel} from 'umi'
 import {Auth} from '@/wrappers/auth'
+import {getHost} from '@/utils'
 
 const Chat: FC = () => {
   const {templateContent} = useModel('chatModel')
@@ -31,6 +32,7 @@ const Chat: FC = () => {
     try {
       const res = await genTitle({chat_id: chatId})
       if (res){
+        console.log('-- restitle : ', res)
         setCurrentChatTitle(res.title)
       }
     } catch (e) {
@@ -66,7 +68,7 @@ const Chat: FC = () => {
     setLoading(true)
 
     const url = '/v1/chat/send_text'
-    let u = 'http://mini.vcode.me' + url
+    let u = getHost() + url
     if (process.env.NODE_ENV === 'development' || window.location.hostname.includes('vercel.app')) {
       u = '/api' + url
     }

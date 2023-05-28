@@ -46,7 +46,7 @@ const ChatHistory: FC = () => {
             </div>
             <div className={less.content}>
               {item.created_at} <br/>
-              {item.id}
+              {/*{item.id}*/}
             </div>
             <div className={less.footer} onClick={(e) => {
               e.stopPropagation()

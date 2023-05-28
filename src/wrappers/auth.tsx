@@ -1,11 +1,11 @@
 import {Navigate, useLocation} from 'umi'
 import {getLocalStorage} from '@/utils/localCache'
+import {isLogin} from '@/utils'
 
 export const Auth = (Component) => () => {
   const pathname = useLocation().pathname
-  const isLogin = getLocalStorage('isLogin')
 
-  if (isLogin) {
+  if (isLogin()) {
     if (pathname !== '/') {
       return <Component/>
     } else {

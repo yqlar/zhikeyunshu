@@ -9,9 +9,17 @@ interface Props {
 const LoginModal: FC = (props: Props) => {
   const {loginModalVisible, closeLoginModal} = useModel('userModel')
 
-  return <Modal centered={true} width={400} open={loginModalVisible} footer={null} maskClosable={true} onCancel={(() => {
-    closeLoginModal()
-  })}>
+  return <Modal centered={true}
+                width={400}
+                open={loginModalVisible}
+                footer={null}
+                maskClosable={false}
+                keyboard={false}
+                close
+                closable={false}
+                onCancel={(() => {
+                  closeLoginModal()
+                })}>
     <div className={less.title}>
       微信扫码一键登录
     </div>
