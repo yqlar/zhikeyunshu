@@ -131,12 +131,26 @@ export async function createChat(
 //   })
 // }
 
-// 发送问题
+// 推出登录
 export async function userLogout(
   options?: { [key: string]: any },
 ) {
   return request('/v1/user/logout', {
     method: 'POST',
+    ...(options || {}),
+  })
+}
+
+// 生成问题 title
+export async function genTitle(
+  data: {
+    chat_id: number
+  },
+  options?: { [key: string]: any },
+) {
+  return request('/v1/chat/gen_title', {
+    method: 'POST',
+    data,
     ...(options || {}),
   })
 }

@@ -68,7 +68,7 @@ const ChatInput: FC<Props> = (props) => {
             openTemplateModal()
           }}>
             <img src={promptIcon} alt=""/>
-            <span>提示词库</span>
+            <span>模版中心</span>
           </Button>
           <Button
             disabled={disable}

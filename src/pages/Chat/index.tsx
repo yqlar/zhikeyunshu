@@ -5,7 +5,7 @@ import AIChatItem from '@/pages/Chat/components/ChatItem/AIChatItem'
 import UserChatItem from '@/pages/Chat/components/ChatItem/UserChatItem'
 import {ChatItem} from '@/interface/chat'
 import RichEdit from '@/pages/Chat/components/RichEdit'
-import {createChat, getChatHistoryList} from '@/services/api'
+import {createChat, genTitle, getChatHistoryList} from '@/services/api'
 import queryString from 'query-string'
 import {history, useModel} from 'umi'
 import {Auth} from '@/wrappers/auth'
@@ -16,6 +16,7 @@ const Chat: FC = () => {
   const [chatList, setChatList] = useState([])
   const [currentChatId, setCurrentChatId] = useState<number>(0)
   const [currentChat, setCurrentChat] = useState<ChatItem | null>(null)
+  const [currentChatTitle, setCurrentChatTitle] = useState<string>('')
   const scrollContainerRef = useRef(null)
   const scrollPlaceholder = useRef(null)
   const [loading, setLoading] = useState(false)
@@ -25,6 +26,17 @@ const Chat: FC = () => {
   const [chatPage, setChatPage] = useState(1)
   const query = queryString.parse(history.location.search)
   const {chat_id} = query
+
+  const createChatTitle = async (chatId) => {
+    try {
+      const res = await genTitle({chat_id: chatId})
+      if (res){
+        setCurrentChatTitle(res.title)
+      }
+    } catch (e) {
+      console.log('-- createChatTitle error: ', e)
+    }
+  }
 
   const sendData = async (d) => {
     let chatId = currentChatId
@@ -82,6 +94,10 @@ const Chat: FC = () => {
       function pump() {
         reader.read().then(({value, done}) => {
           if (done) {
+            if (chatList.length === 1) {
+              // 当第一个问题提问完成后，请求生成 title
+              createChatTitle(chatId)
+            }
             setCurrentChat(null)
             chatList.push({
               type: 'answer',
@@ -92,7 +108,7 @@ const Chat: FC = () => {
           }
           const data = textDecoder.decode(value)
           const arr = data.split('data:')
-          console.log('-- data: ', arr)
+          // console.log('-- data: ', arr)
 
           arr.forEach((x) => {
             if (x) {
@@ -165,7 +181,6 @@ const Chat: FC = () => {
     }
   }
 
-
   useEffect(() => {
     setTimeout(() => {
       if (scrollPlaceholder?.current.scrollIntoView) {
@@ -235,7 +250,7 @@ const Chat: FC = () => {
           {editVisible ? '收起' : '编辑器'}
         </div>
         <div className={less.container} style={{display: editVisible ? '' : 'none'}}>
-          <RichEdit chat={editChat} editVisible={editVisible} currentChatId={currentChatId}/>
+          <RichEdit currentChatTitle={currentChatTitle} chat={editChat} editVisible={editVisible} currentChatId={currentChatId}/>
         </div>
       </div>
     </div>
