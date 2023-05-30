@@ -27,7 +27,7 @@ const RichEdit: FC<Props> = (props) => {
       content: data,
       title: t,
     }).then(() => {
-      message.success('文档自动保存')
+      // message.success('文档自动保存')
     })
   }, 5000))
 

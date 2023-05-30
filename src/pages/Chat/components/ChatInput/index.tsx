@@ -47,8 +47,11 @@ const ChatInput: FC<Props> = (props) => {
   }
 
   const keyUpAction = (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+    if (e.key === 'Enter') {
       sendData()
+      e.cancelBubble = true
+      e.preventDefault()
+      e.stopPropagation()
     }
   }
 

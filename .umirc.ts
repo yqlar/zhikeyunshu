@@ -1,4 +1,4 @@
-import {defineConfig} from '@umijs/max'
+import { defineConfig } from "@umijs/max";
 
 export default defineConfig({
   antd: {},
@@ -6,9 +6,9 @@ export default defineConfig({
   model: {},
   initialState: {},
   request: {
-    dataField: 'data'
+    dataField: "data",
   },
-  title: '智客云数AI助手',
+  title: "智客云数AI助手",
   lessLoader: {
     modifyVars: {
       // 或者可以通过 less 文件覆盖（文件路径为绝对路径）
@@ -18,31 +18,32 @@ export default defineConfig({
   },
   routes: [
     {
-      path: '/',
-      name: '首页',
-      layout: '@/layouts/index',
-      component: '@/pages/Home/index',
+      path: "/",
+      name: "首页",
+      layout: "@/layouts/index",
+      component: "@/pages/Home/index",
     },
     {
-      path: '/chat',
-      name: '对话',
-      layout: '@/layouts/index',
-      component: '@/pages/Chat/index',
+      path: "/chat",
+      name: "对话",
+      layout: "@/layouts/index",
+      component: "@/pages/Chat/index",
     },
     {
-      path: '/chat-history',
-      name: '对话历史',
-      layout: '@/layouts/index',
-      component: '@/pages/ChatHistory/index',
+      path: "/chat-history",
+      name: "对话历史",
+      layout: "@/layouts/index",
+      component: "@/pages/ChatHistory/index",
     },
   ],
-  npmClient: 'yarn',
+
+  npmClient: "yarn",
   proxy: {
-    '/api': {
-      'target': 'http://mini.vcode.me/',
-      'changeOrigin': true,
-      'pathRewrite': { '^/api' : '' },
+    "/api": {
+      target: "http://mini.vcode.me/",
+      changeOrigin: true,
+      pathRewrite: { "^/api": "" },
     },
   },
-})
-
+  tailwindcss: {},
+});
