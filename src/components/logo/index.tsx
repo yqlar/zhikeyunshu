@@ -5,7 +5,7 @@ import less from './index.less'
 const Logo: FC = () => {
   return <a className={less.logo} href='/'>
     <img src={logo} alt="logo"/>
-    <span>智客云数AI助手</span>
+    <span>it2.ai</span>
   </a>
 }
 

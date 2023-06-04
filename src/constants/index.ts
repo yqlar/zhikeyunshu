@@ -1,1 +1,1 @@
-export const DEFAULT_NAME = '智客云数AI助手';
+export const DEFAULT_NAME = 'it2.ai';

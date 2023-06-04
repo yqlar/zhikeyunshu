@@ -13,10 +13,8 @@ const LoginModal: FC = (props: Props) => {
                 width={400}
                 open={loginModalVisible}
                 footer={null}
-                maskClosable={false}
-                keyboard={false}
+                maskClosable={true}
                 close
-                closable={false}
                 onCancel={(() => {
                   closeLoginModal()
                 })}>

@@ -154,3 +154,45 @@ export async function genTitle(
     ...(options || {}),
   })
 }
+
+// 生成自定义模版
+export async function createTemplate(
+  data: {
+    title: string
+    content: string
+  },
+  options?: { [key: string]: any },
+) {
+  return request('/v1/tmpl/custom/create', {
+    method: 'POST',
+    data,
+    ...(options || {}),
+  })
+}
+
+// 修改自定义模版
+export async function updateCustomTemplate(
+  data: {
+    detail_id: number
+    title: string
+    content: string
+  },
+  options?: { [key: string]: any },
+) {
+  return request('/v1/tmpl/custom/update', {
+    method: 'POST',
+    data,
+    ...(options || {}),
+  })
+}
+
+// 删除自定义模版
+export async function delCustomTemplate(
+  id,
+  options?: { [key: string]: any },
+) {
+  return request(`/v1/tmpl/custom/delete?detail_id=${id}`, {
+    method: 'POST',
+    ...(options || {}),
+  })
+}

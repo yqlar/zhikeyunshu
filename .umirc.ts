@@ -8,7 +8,7 @@ export default defineConfig({
   request: {
     dataField: "data",
   },
-  title: "智客云数AI助手",
+  title: "it2.ai",
   lessLoader: {
     modifyVars: {
       // 或者可以通过 less 文件覆盖（文件路径为绝对路径）

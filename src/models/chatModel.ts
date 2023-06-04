@@ -3,7 +3,7 @@ import {useState} from 'react'
 import {isLogin} from '@/utils'
 
 const chatModel = () => {
-  const [templateModalVisible, setTemplateModalVisible] = useState(false)
+  const [templateModalVisible, setTemplateModalVisible] = useState(true)
   const [templateContent, setTemplateContent] = useState('')
   const openTemplateModal = () => {
     if (isLogin()) {
