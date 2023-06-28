@@ -42,7 +42,7 @@ const HomePageHeader: FC = (props: any) => {
       <div className={less.menu}>
 
         <Menu mode="horizontal" items={[]} onClick={menuAction}/>
-        <Button type="primary" shape="round" size="large" onClick={props.getWeiChatQRCode}>免费注册 / 登录</Button>
+        <Button type="primary" shape="round" size="large" onClick={props.getWeiChatQRCode}>开启免费智能问答</Button>
       </div>
     </div>
   )

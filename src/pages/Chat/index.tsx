@@ -5,14 +5,15 @@ import AIChatItem from '@/pages/Chat/components/ChatItem/AIChatItem'
 import UserChatItem from '@/pages/Chat/components/ChatItem/UserChatItem'
 import {ChatItem} from '@/interface/chat'
 import RichEdit from '@/pages/Chat/components/RichEdit'
-import {createChat, genTitle, getChatHistoryList} from '@/services/api'
+import * as api from '@/services/api'
 import queryString from 'query-string'
 import {history, useModel} from 'umi'
 import {Auth} from '@/wrappers/auth'
 import {getHost} from '@/utils'
+import Guide from '@/pages/Chat/components/guide'
 
 const Chat: FC = () => {
-  const {templateContent} = useModel('chatModel')
+  const {templateContent, showContinueButton} = useModel('chatModel')
 
   const [chatList, setChatList] = useState([])
   const [currentChatId, setCurrentChatId] = useState<number>(0)
@@ -24,15 +25,15 @@ const Chat: FC = () => {
   const [historyLoading, setHistoryLoading] = useState(false)
   const [editVisible, setEditVisible] = useState(false)
   const [editChat, setEditChat] = useState<ChatItem | null>(null)
+  const [inputValue, setInputValue] = useState<string>('')
   const [chatPage, setChatPage] = useState(1)
   const query = queryString.parse(history.location.search)
   const {chat_id} = query
 
   const createChatTitle = async (chatId) => {
     try {
-      const res = await genTitle({chat_id: chatId})
+      const res = await api.genTitle({chat_id: chatId})
       if (res){
-        console.log('-- restitle : ', res)
         setCurrentChatTitle(res.title)
       }
     } catch (e) {
@@ -44,7 +45,7 @@ const Chat: FC = () => {
     let chatId = currentChatId
     if (chatId === 0) {
       try {
-        const res = await createChat()
+        const res = await api.createChat()
         if (res?.chat_id) {
           setCurrentChatId(res.chat_id)
           chatId = res.chat_id
@@ -110,7 +111,7 @@ const Chat: FC = () => {
           }
           const data = textDecoder.decode(value)
           const arr = data.split('data:')
-          // console.log('-- data: ', arr)
+          console.log('-- data: ', arr)
 
           arr.forEach((x) => {
             if (x) {
@@ -120,6 +121,10 @@ const Chat: FC = () => {
                 type: 'answer',
                 content: text,
               })
+              if (stream.finish_reason === 'length') {
+                // showContinueButton()
+                // setContinueButtonVisible(true)
+              }
             }
           })
           pump()
@@ -156,7 +161,7 @@ const Chat: FC = () => {
   const getHistory = async (chat_id) => {
     const arr = chatList
     try {
-      const res = await getChatHistoryList({
+      const res = await api.getChatHistoryList({
         chat_id,
         page: chatPage,
       })
@@ -207,6 +212,14 @@ const Chat: FC = () => {
     setChatPage(0)
   }
 
+  // 继续请求对话
+  const continueChat = () => {
+    const res = api.continueChat({
+      chat_id: currentChatId,
+    })
+    console.log('-- continueChat: ', res)
+  }
+
   useEffect(() => {
     if (chat_id) {
       setCurrentChatId(Number(chat_id))
@@ -236,12 +249,14 @@ const Chat: FC = () => {
         <div className={less.chatContent}>
           <div className={less.scrollContainer} ref={scrollContainerRef}>
             <div className={less.listHeaderPlaceholder}/>
-            {list()}
+            {
+              chatList.length === 0 ? <Guide updateInput={setInputValue} /> :list()
+            }
             <a className={less.scrollPlaceholder} ref={scrollPlaceholder}></a>
           </div>
         </div>
         <div className={less.input}>
-          <ChatInput loading={loading} send={sendData}/>
+          <ChatInput loading={loading} send={sendData} continueChat={continueChat} inputValue={inputValue}/>
         </div>
       </div>
 

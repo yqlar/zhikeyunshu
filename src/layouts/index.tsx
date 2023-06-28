@@ -10,6 +10,7 @@ import ImgTemplate from '@/assets/img/template.svg'
 import ImgHistory from '@/assets/img/history.svg'
 import {Menu, MenuProps} from 'antd'
 import {userLogout} from '@/services/api'
+import AddMember from '@/pages/Chat/components/AddMember'
 
 const BasicLayout: FC = () => {
   const [currentMenu, setCurrentMenu] = useState('chat')
@@ -75,7 +76,8 @@ const BasicLayout: FC = () => {
       </div>
       <div className={less.right}>
         <div className={less.head}>
-          {/*<AddMember/>*/}
+          {/*<div></div>*/}
+          <AddMember/>
         </div>
         <Outlet/>
       </div>

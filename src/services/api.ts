@@ -196,3 +196,17 @@ export async function delCustomTemplate(
     ...(options || {}),
   })
 }
+
+// 继续对话
+export async function continueChat(
+  data: {
+    chat_id: number
+  },
+  options?: { [key: string]: any },
+) {
+  return request('/v1/chat/send_text/continue', {
+    method: 'POST',
+    data,
+    ...(options || {}),
+  })
+}

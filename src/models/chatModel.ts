@@ -3,7 +3,8 @@ import {useState} from 'react'
 import {isLogin} from '@/utils'
 
 const chatModel = () => {
-  const [templateModalVisible, setTemplateModalVisible] = useState(true)
+  const [templateModalVisible, setTemplateModalVisible] = useState(false)
+  const [continueButtonVisible, setContinueButtonVisible] = useState(false)
   const [templateContent, setTemplateContent] = useState('')
   const openTemplateModal = () => {
     if (isLogin()) {
@@ -16,8 +17,15 @@ const chatModel = () => {
   const changeTemplateContent = (data) => {
     setTemplateContent(data)
   }
+  const hideContinueButton = () => {
+    setContinueButtonVisible(false)
+  }
+  const showContinueButton = () => {
+    setContinueButtonVisible(true)
+  }
   return {
-    templateModalVisible, closeTemplateModal, openTemplateModal, changeTemplateContent, templateContent
+    templateModalVisible, closeTemplateModal, openTemplateModal, changeTemplateContent, templateContent,
+    continueButtonVisible, hideContinueButton, showContinueButton,
   }
 }
 

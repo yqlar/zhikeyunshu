@@ -1,4 +1,4 @@
-import { defineConfig } from "@umijs/max";
+import {defineConfig} from '@umijs/max'
 
 export default defineConfig({
   antd: {},
@@ -6,9 +6,10 @@ export default defineConfig({
   model: {},
   initialState: {},
   request: {
-    dataField: "data",
+    dataField: 'data',
   },
-  title: "it2.ai",
+  title: '智客Ai助手',
+  favicons: ['/zhike-logo.png'],
   lessLoader: {
     modifyVars: {
       // 或者可以通过 less 文件覆盖（文件路径为绝对路径）
@@ -18,7 +19,7 @@ export default defineConfig({
   },
   routes: [
     {
-      path: "/",
+      path: '/',
       name: "首页",
       layout: "@/layouts/index",
       component: "@/pages/Home/index",
@@ -37,13 +38,18 @@ export default defineConfig({
     },
   ],
 
-  npmClient: "yarn",
+  npmClient: 'yarn',
   proxy: {
-    "/api": {
-      target: "http://mini.vcode.me/",
+    '/api': {
+      target: 'http://mini.vcode.me/',
       changeOrigin: true,
-      pathRewrite: { "^/api": "" },
+      pathRewrite: {'^/api': ''},
     },
   },
   tailwindcss: {},
+  headScripts: [
+    {
+      src: 'https://hm.baidu.com/hm.js?af47f8b612eab670e5d924f7f684b962',
+    },
+  ],
 });

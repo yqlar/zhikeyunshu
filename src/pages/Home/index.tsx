@@ -91,15 +91,15 @@ const HomePage: React.FC = () => {
             几秒钟就能得到最佳解决方案。
           </div>
           <div className={less.count}>6,000,000+</div>
-          <div className={less.t2}>更多专业团队和创作者选择使用 it2.ai</div>
+          <div className={less.t2}>更多专业团队和创作者选择使用 智客Ai助手</div>
           <div className="flex justify-center">
-            <img className={less.partner} src={partner} alt=""/>
+            {/*<img className={less.partner} src={partner} alt=""/>*/}
           </div>
           <div className={less.userList}></div>
 
-          <div className={less.line}></div>
+          {/*<div className={less.line}></div>*/}
           <div className={less.sectionTitle}>
-            <div>it2.ai 帮助</div>
+            <div>智客Ai助手 帮助</div>
             <div>企业伙伴</div>
           </div>
           <div className={less.t2}>在极短的时间内获得更好的解决方案，
