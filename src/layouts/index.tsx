@@ -11,6 +11,7 @@ import ImgHistory from '@/assets/img/history.svg'
 import {Menu, MenuProps} from 'antd'
 import {userLogout} from '@/services/api'
 import AddMember from '@/pages/Chat/components/AddMember'
+import HomePageLayout from "@/layouts/homePageLayout";
 
 const BasicLayout: FC = () => {
   const [currentMenu, setCurrentMenu] = useState('chat')
@@ -59,8 +60,10 @@ const BasicLayout: FC = () => {
     })
   }, [])
 
-  if (location.pathname === '/') {
-    return <Outlet/>
+  if (location.pathname === '/' || location.pathname === '/vip') {
+    return <HomePageLayout>
+      <Outlet/>
+    </HomePageLayout>
   }
 
   return <div className={less.layout}>

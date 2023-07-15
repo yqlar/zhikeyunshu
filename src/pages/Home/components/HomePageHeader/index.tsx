@@ -9,22 +9,28 @@ const HomePageHeader: FC = (props: any) => {
 
   const items: MenuProps['items'] = [
     {
-      label: 'Chat',
-      key: 'chat',
-      url: '/chat',
+      label: '会员计划',
+      key: 'vip',
+      url: '/vip',
     },
-    {
-      label: 'Use Cases',
-      key: 'UseCases',
-    },
-    {
-      label: 'Resources',
-      key: 'Resources',
-    },
-    {
-      label: 'Pricing',
-      key: 'Pricing',
-    },
+
+    // {
+    //   label: 'Chat',
+    //   key: 'chat',
+    //   url: '/chat',
+    // },
+    // {
+    //   label: 'Use Cases',
+    //   key: 'UseCases',
+    // },
+    // {
+    //   label: 'Resources',
+    //   key: 'Resources',
+    // },
+    // {
+    //   label: 'Pricing',
+    //   key: 'Pricing',
+    // },
   ]
 
   useEffect(() => {
@@ -41,7 +47,7 @@ const HomePageHeader: FC = (props: any) => {
       <Logo/>
       <div className={less.menu}>
 
-        <Menu mode="horizontal" items={[]} onClick={menuAction}/>
+        <Menu mode="horizontal" items={items} onClick={menuAction}/>
         <Button type="primary" shape="round" size="large" onClick={props.getWeiChatQRCode}>开启免费智能问答</Button>
       </div>
     </div>

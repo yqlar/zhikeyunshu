@@ -36,6 +36,12 @@ export default defineConfig({
       layout: "@/layouts/index",
       component: "@/pages/ChatHistory/index",
     },
+    {
+      path: "/vip",
+      name: "会员计划",
+      layout: "@/layouts/index",
+      component: "@/pages/Vip/index",
+    },
   ],
 
   npmClient: 'yarn',
