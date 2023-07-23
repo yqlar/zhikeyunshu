@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "你的插件名称",
+  "description": "你的插件描述",
+  "version": "1.0",
+  "action": {
+    "default_icon": "zhike-logo.png",
+    "default_popup": "index.html"
+  },
+  "permissions": [
+    "activeTab"
+  ]
+}

@@ -6,6 +6,10 @@ const userModel = () => {
   const [priceModalVisible, setPriceModalVisible] = useState(false)
   // 微信二维码登录
   const [loginModalVisible, setLoginModalVisible] = useState(false)
+  // vip 价格类型
+  const [priceType, setPriceType] = useState(null)
+  // 非 vip 时提示弹窗
+  const [noVipTipsModal, setNoVipTipsModal] = useState(false)
 
   const openPriceModal = () => {
     setPriceModalVisible(true)
@@ -19,8 +23,25 @@ const userModel = () => {
   const closeLoginModal = () => {
     setLoginModalVisible(false)
   }
+  const openNoVipTipsModal = () => {
+    setNoVipTipsModal(true)
+  }
+  const closeNoVipTipsModal = () => {
+    setNoVipTipsModal(false)
+  }
   return {
-    priceModalVisible, openPriceModal, closePriceModal, loginModalVisible, openLoginModal, closeLoginModal,
+    priceModalVisible,
+    setPriceModalVisible,
+    openPriceModal,
+    closePriceModal,
+    loginModalVisible,
+    openLoginModal,
+    closeLoginModal,
+    priceType,
+    setPriceType,
+    noVipTipsModal,
+    openNoVipTipsModal,
+    closeNoVipTipsModal
   }
 }
 

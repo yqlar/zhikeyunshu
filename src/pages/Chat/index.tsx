@@ -11,10 +11,14 @@ import {history, useModel} from 'umi'
 import {Auth} from '@/wrappers/auth'
 import {getHost} from '@/utils'
 import Guide from '@/pages/Chat/components/guide'
+import {ErrorCode} from "@/enum/ErrorCode";
+import NoVipTipsModal from "@/components/noVipTipsModal";
 
 const Chat: FC = () => {
   const {templateContent, showContinueButton} = useModel('chatModel')
-
+  const {
+    openNoVipTipsModal,
+  } = useModel('userModel')
   const [chatList, setChatList] = useState([])
   const [currentChatId, setCurrentChatId] = useState<number>(0)
   const [currentChat, setCurrentChat] = useState<ChatItem | null>(null)
@@ -116,6 +120,10 @@ const Chat: FC = () => {
           arr.forEach((x) => {
             if (x) {
               const stream = x && JSON.parse(x)
+              if (stream.code === ErrorCode.NO_VIP) {
+                openNoVipTipsModal()
+                return null
+              }
               text = text + stream.data
               setCurrentChat({
                 type: 'answer',
@@ -270,6 +278,7 @@ const Chat: FC = () => {
           <RichEdit currentChatTitle={currentChatTitle} chat={editChat} editVisible={editVisible} currentChatId={currentChatId}/>
         </div>
       </div>
+      <NoVipTipsModal />
     </div>
   )
 }

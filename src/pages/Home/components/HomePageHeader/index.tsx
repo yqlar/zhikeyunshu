@@ -1,21 +1,23 @@
-import {FC, useEffect} from 'react'
+import {FC} from 'react'
 import less from './index.less'
 import Logo from '@/components/logo'
 import type {MenuProps} from 'antd'
 import {Button, Menu} from 'antd'
-import {history} from 'umi'
+import {history, useModel} from 'umi'
+import {isLogin} from "@/utils";
 
-const HomePageHeader: FC = (props: any) => {
+const HomePageHeader: FC = () => {
+    const {openLoginModal} = useModel('userModel')
 
-  const items: MenuProps['items'] = [
-    {
-      label: '会员计划',
-      key: 'vip',
-      url: '/vip',
-    },
+    const items: MenuProps['items'] = [
+        {
+            label: '会员计划',
+            key: 'vip',
+            url: '/vip',
+        },
 
-    // {
-    //   label: 'Chat',
+        // {
+        //   label: 'Chat',
     //   key: 'chat',
     //   url: '/chat',
     // },
@@ -33,10 +35,6 @@ const HomePageHeader: FC = (props: any) => {
     // },
   ]
 
-  useEffect(() => {
-      document.cookie
-  }, [])
-
   const menuAction = (data) => {
     const item = items.find(x => x.key === data.key)
     history.push(item.url)
@@ -44,12 +42,15 @@ const HomePageHeader: FC = (props: any) => {
 
   return (
     <div className={less.header}>
-      <Logo/>
-      <div className={less.menu}>
+        <Logo/>
+        <div className={less.menu}>
 
-        <Menu mode="horizontal" items={items} onClick={menuAction}/>
-        <Button type="primary" shape="round" size="large" onClick={props.getWeiChatQRCode}>开启免费智能问答</Button>
-      </div>
+            <Menu mode="horizontal" items={items} onClick={menuAction}/>
+            <Button type="primary" shape="round" size="large"
+                    onClick={() => {
+                        isLogin() ? history.push('/chat') : openLoginModal()
+                    }}>开启免费智能问答</Button>
+        </div>
     </div>
   )
 }

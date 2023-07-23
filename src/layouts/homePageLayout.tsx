@@ -7,12 +7,11 @@ import React, {useState} from 'react'
 import * as api from '@/services/api'
 import {history, useModel} from 'umi'
 import {setLocalStorage} from '@/utils/localCache'
+import {isLogin} from "@/utils";
 
 const HomePageLayout: React.FC = (props: {
     children: React.ReactNode;
 }) => {
-    const {openLoginModal, closeLoginModal} = useModel('userModel')
-    const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null)
 
     const headerStyle: React.CSSProperties = {
         color: cssVariables.fontColorMain,
@@ -31,39 +30,13 @@ const HomePageLayout: React.FC = (props: {
         borderTop: '1px solid #eeeeee',
     }
 
-
-    const codeCallback = async (session_id: string) => {
-        const d = await api.scanCallback({session_id})
-
-        if (d.code === '200') {
-            setLocalStorage('isLogin', true)
-            closeLoginModal()
-            message.success('登录成功')
-            history.push('/chat')
-        } else {
-            const ttt = setTimeout(() => {
-                codeCallback(session_id)
-                clearTimeout(ttt)
-            }, 1000)
-        }
-    }
-
-    const getWeiChatQRCode = async () => {
-        const d = await api.getWeChatQRCode()
-        if (d?.url) {
-            setQrCodeUrl(d.url)
-            codeCallback(d.session_id)
-        }
-        openLoginModal()
-    }
-
     return (
         <Space direction="vertical" style={{width: '100%'}} size={[0, 48]}>
-            <LoginModal qrCodeUrl={qrCodeUrl}/>
+            <LoginModal />
 
             <Layout>
                 <Header style={headerStyle}>
-                    <HomePageHeader getWeiChatQRCode={getWeiChatQRCode}/>
+                    <HomePageHeader />
                 </Header>
                 <Content style={contentStyle}>
                     {props.children}

@@ -6,6 +6,7 @@ import {useState} from 'react'
 import * as api from '@/services/api'
 import {history, useModel} from 'umi'
 import {setLocalStorage} from '@/utils/localCache'
+import {isLogin} from "@/utils";
 
 const HomePage: React.FC = () => {
   const {openLoginModal, closeLoginModal} = useModel('userModel')
@@ -28,32 +29,6 @@ const HomePage: React.FC = () => {
       borderTop: '1px solid #eeeeee',
   }
 
-
-  const codeCallback = async (session_id: string) => {
-    const d = await api.scanCallback({session_id})
-
-    if (d.code === '200') {
-      setLocalStorage('isLogin', true)
-      closeLoginModal()
-      message.success('登录成功')
-      history.push('/chat')
-    } else {
-      const ttt = setTimeout(() => {
-        codeCallback(session_id)
-        clearTimeout(ttt)
-      }, 1000)
-    }
-  }
-
-  const getWeiChatQRCode = async () => {
-    const d = await api.getWeChatQRCode()
-    if (d?.url) {
-      setQrCodeUrl(d.url)
-      codeCallback(d.session_id)
-    }
-    openLoginModal()
-  }
-
   return (
       <>
           <div className={less.sectionTitle}>
@@ -61,7 +36,9 @@ const HomePage: React.FC = () => {
               <div>我们都可以帮您轻松解答</div>
           </div>
           <p className={less.t}>立刻免费注册进行智能问答吧</p>
-          <Button size="large" type="primary" shape="round" onClick={getWeiChatQRCode}>免费注册 / 登录</Button>
+          <Button size="large" type="primary" shape="round" onClick={() => {
+              isLogin() ? history.push('/chat') : openLoginModal()
+          }}>免费注册 / 登录</Button>
           <div className={less.line}></div>
           {/*<div className={less.templateList}>*/}
           {/*  <TemplateEntry />*/}
@@ -107,7 +84,10 @@ const HomePage: React.FC = () => {
           <div className={less.line}></div>
           <div className="text-[68px] font-extrabold mb-6">准备好拥抱Ai时代了吗？</div>
           <div className="text-[22px] mb-4">写作速度提高10倍，吸引您的受众，再也不必为空白的页面苦恼。</div>
-          <Button size="large" type="primary" shape="round" onClick={getWeiChatQRCode}>立即开始免费使用</Button>
+          <Button size="large" type="primary" shape="round" onClick={() => {
+              console.log('-- 2: ', )
+              isLogin() ? history.push('/chat') : openLoginModal()
+          }}>立即开始免费使用</Button>
           <div className="flex justify-around mt-10 mb-20">
               <div className="flex justify-start items-center">
                   <img className="w-[56px] h-[56px] mr-[15px]" src={hookImg} alt=""/>

@@ -210,3 +210,32 @@ export async function continueChat(
     ...(options || {}),
   })
 }
+
+// 获取支付二维码
+export async function getVipPriceQrCode(
+    params: {
+      product_type: string
+  },
+  options?: { [key: string]: any },
+) {
+  return request('/v1/pay/asset/paid/unite/product', {
+    method: 'GET',
+    params,
+    ...(options || {}),
+  })
+}
+
+// 轮训支付状态
+export async function checkWeChatPaymentStatus(
+    params: {
+      trade_no: string
+  },
+  options?: { [key: string]: any },
+) {
+
+  return request('/v1/pay/asset/paid/unite/scan_callback', {
+    method: 'GET',
+    params,
+    ...(options || {}),
+  })
+}
