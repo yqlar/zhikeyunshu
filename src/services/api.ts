@@ -239,3 +239,34 @@ export async function checkWeChatPaymentStatus(
     ...(options || {}),
   })
 }
+
+// 移动端获取微信 access_token
+export async function getAccessToken(
+    params: {
+      code: string
+    },
+    options?: { [key: string]: any },
+) {
+  return request('/v1/pay/asset/paid/product', {
+    method: 'GET',
+    params,
+    ...(options || {}),
+  })
+}
+
+
+// 移动端支付
+export async function mobilePay(
+    params: {
+      product_type: string
+      token: string
+      channel: string
+  },
+  options?: { [key: string]: any },
+) {
+  return request('/v1/pay/asset/paid/product', {
+    method: 'GET',
+    params,
+    ...(options || {}),
+  })
+}

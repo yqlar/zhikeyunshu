@@ -58,9 +58,11 @@ const QrCode: FC = () => {
             const id = priceType.id
             setLoading(true)
             getVipPriceQrCode({product_type: id}).then((res) => {
-                if (res) {
+                if (res.code === '0') {
                     setPrCodeValue(res.pay_link)
                     checkPayment(res.trade_no)
+                } else {
+                    message.error(res.message)
                 }
             }).finally(() => {
                 setLoading(false)

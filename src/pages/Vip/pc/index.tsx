@@ -8,7 +8,6 @@ import QrCode from "@/pages/Vip/components/qrCode";
 const VipPc: FC = (props) => {
     const {timeType, setTimeType, priceList, recharge} = props?.data
 
-
     return (
         <div className="pb-60 w-[50vw] m-0 m-auto">
             <h1 className="text-[36px] font-bold mb-7">使用智客Ai助手提高工作效率</h1>
@@ -38,7 +37,7 @@ const VipPc: FC = (props) => {
                                 <span>免费查询</span>
                             </div>
                             <div className="pl-5 mb-2">
-                                ✅ 30 次查询每天
+                                ✅ 5 次查询每天
                             </div>
                             <div className="mb-2">
                                 <span className="text-xs text-gray-300 mr-[10px]">●</span>

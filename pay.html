@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
+    <title>{{ .title }}</title>
+    <link rel="stylesheet" href="https://res.wx.qq.com/t/wx_fed/weui-source/res/2.5.16/weui.min.css">
+    <script src="https://res.wx.qq.com/t/wx_fed/weui.js/res/1.2.18/weui.min.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.0.3/jquery.min.js"></script>
+    <style>
+        .main {
+            margin-top: 25%;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 5px;
+            border: 2px solid #333333;
+            width: 90%;
+            height: 500px;
+        }
+
+        .weui-btn-area {
+            margin-top: 20px;
+            width: 90%;
+        }
+
+        .weui-btn-area .weui-btn {
+            background-color: #212121;
+            color: #ffffff;
+            width: 100%;
+            padding-top: 12px;
+            padding-bottom: 12px;
+        }
+
+        .integral-num {
+            margin-top: 15px;
+            font-weight: 400;
+            font-size: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888888;
+            font-weight: 400;
+        }
+
+        .integral-total {
+            margin-top: 15px;
+            font-weight: 400;
+            font-size: 120%;
+            display: flex;
+            justify-content: left;
+            padding-left: 5%;
+            font-weight: 500;
+            color: #212121;
+        }
+
+        .dividing-line {
+            margin: 0 auto;
+            margin-top: 10px;
+            background: #333333;
+            width: 90%;
+            height: 2px;
+        }
+
+        .feature {
+            word-break: break-all;
+            padding-left: 5%;
+            color: #888888;
+        }
+
+        .feature-module {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .product-container {
+            margin: auto;
+            width: 95%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .product {
+            margin-top: 10%;
+            border-radius: 10px;
+            border: 2px solid #888888;
+            width:  22%;
+            height: 180px;
+        }
+
+        .product-select {
+            font-weight: 800;
+            opacity: 0.9;
+            background: #f1eaea;
+            margin-top: 10%;
+            border-radius: 10px;
+            border: 2px solid #888888;
+            width: 22%;
+            height: 180px;
+        }
+
+        .product-title {
+            font-weight: 400;
+            font-size: 100%;
+            text-align: center;
+            margin-top: 50%;
+        }
+
+        .product-sell {
+            margin-top: 3%;
+            text-align: center;
+        }
+
+        .product-line {
+            margin-top: 20%;
+            text-align: center;
+            color: #888888;
+            text-decoration: line-through;
+        }
+
+    </style>
+</head>
+<body>
+<input type="hidden" id="token" value="{{ .token }}">
+
+<div class="main">
+    <div class="integral-total">会员中心</div>
+    <div class="feature-module">
+        <text class="feature">无限畅聊</text>
+        <text class="feature">主题模版</text>
+        <text class="feature">语音输入</text>
+    </div>
+    <div class="dividing-line"></div>
+
+    <div class="product-container">
+        <div id="one_day_paid_v1" {{if .discount_paid}} hidden="hidden" {{end}} class="product"
+             onclick="productSelect(this);">
+            <div class="product-title">1天体验</div>
+            <div class="product-sell">¥2.9</div>
+            <div class="product-sell">2.9/天</div>
+            <div class="product-line">¥19</div>
+        </div>
+        <!--        <div id="one_week_paid" class="product" onclick="productSelect(this);">-->
+        <!--            <div class="product-title">周会员</div>-->
+        <!--            <div class="product-sell">¥19.9</div>-->
+        <!--            <div class="product-sell">2.8/天</div>-->
+        <!--            <div class="product-line">¥29.9</div>-->
+        <!--        </div>-->
+        <div id="one_month_paid" class="product-select" onclick="productSelect(this);">
+            <div class="product-title">月会员</div>
+            <div class="product-sell">¥29</div>
+            <div class="product-sell">0.96/天</div>
+            <div class="product-line">¥69</div>
+        </div>
+        <div id="one_quarter_paid" class="product" onclick="productSelect(this);">
+            <div class="product-title">季会员</div>
+            <div class="product-sell">¥69</div>
+            <div class="product-sell">0.76/天</div>
+            <div class="product-line">¥129</div>
+        </div>
+        <div id="half_year_paid" class="product" onclick="productSelect(this);">
+            <div class="product-title">半年</div>
+            <div class="product-sell">¥119</div>
+            <div class="product-sell">0.66/天</div>
+            <div class="product-line">¥199</div>
+        </div>
+        <div id="one_year_paid" class="product" onclick="productSelect(this);">
+            <div class="product-title">年会员</div>
+            <div class="product-sell">¥169</div>
+            <div class="product-sell">0.46/天</div>
+            <div class="product-line">¥299</div>
+        </div>
+    </div>
+    <text id="validity_period" class="integral-num"></text>
+    <div class="weui-btn-area">
+        <button class="weui-btn" type="default" onclick="tapDialogShowPaidButton()">
+            加入会员，无限畅聊
+        </button>
+    </div>
+    <text class="integral-num">会员服务为虚拟产品，支付后不支持退款</text>
+</div>
+
+
+<script type="text/javascript">
+
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+
+    let loginLink = 'https://open.weixin.qq.com/connect/oauth2/authorize?' +
+        'appid=wxf5368c9d8cd91aef&' +
+        'redirect_uri=http%3A%2F%2Fmini.vcode.me%2Fv1%2Fweb%2Fuser%2Flogin' +
+        '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+
+    let payProduct = 'one_month_paid';
+    let token = ''
+    let host = 'https://mini.vcode.me'
+
+    $(document).ready(function () {
+        let tokenVal = document.getElementById('token').value || '';
+        if (tokenVal.length != 0) {
+            token = tokenVal
+        }
+        $("#validity_period").text("月会员，有效期：" + addDate(30))
+    })
+
+    function addDate(days) {
+        let d = new Date();
+        d.setDate(d.getDate() + days);
+        let m = d.getMonth() + 1;
+        return d.getFullYear() + '-' + m + '-' + d.getDate();
+    }
+
+    function productSelect(e) {
+        let p = e.id
+        if (p == 'one_day_paid_v1') {
+            payProduct = 'one_day_paid_v1'
+            document.getElementById('one_day_paid_v1').className = 'product-select';
+            // document.getElementById('one_week_paid').className = 'product';
+            document.getElementById('one_month_paid').className = 'product';
+            document.getElementById('one_quarter_paid').className = 'product';
+            document.getElementById('half_year_paid').className = 'product';
+            document.getElementById('one_year_paid').className = 'product';
+            $("#validity_period").text("一天体验会员，有效期：" + addDate(1))
+        }
+
+        // if (p == 'one_week_paid') {
+        //     payProduct = 'one_week_paid'
+        //     document.getElementById('one_day_paid_v1').className = 'product';
+        //     document.getElementById('one_week_paid').className = 'product-select';
+        //     document.getElementById('one_month_paid').className = 'product';
+        //     document.getElementById('one_quarter_paid').className = 'product';
+        //     document.getElementById('half_year_paid').className = 'product';
+        //     document.getElementById('one_year_paid').className = 'product';
+        // }
+
+        if (p == 'one_month_paid') {
+            payProduct = 'one_month_paid'
+            document.getElementById('one_day_paid_v1').className = 'product';
+            // document.getElementById('one_week_paid').className = 'product';
+            document.getElementById('one_month_paid').className = 'product-select';
+            document.getElementById('one_quarter_paid').className = 'product';
+            document.getElementById('half_year_paid').className = 'product';
+            document.getElementById('one_year_paid').className = 'product';
+            $("#validity_period").text("月会员，有效期：" + addDate(30))
+        }
+
+        if (p == 'one_quarter_paid') {
+            payProduct = 'one_quarter_paid'
+            document.getElementById('one_day_paid_v1').className = 'product';
+            // document.getElementById('one_week_paid').className = 'product';
+            document.getElementById('one_month_paid').className = 'product';
+            document.getElementById('one_quarter_paid').className = 'product-select';
+            document.getElementById('half_year_paid').className = 'product';
+            document.getElementById('one_year_paid').className = 'product';
+            $("#validity_period").text("季会员，有效期：" + addDate(90))
+        }
+
+        if (p == 'half_year_paid') {
+            payProduct = 'half_year_paid'
+            document.getElementById('one_day_paid_v1').className = 'product';
+            // document.getElementById('one_week_paid').className = 'product';
+            document.getElementById('one_month_paid').className = 'product';
+            document.getElementById('one_quarter_paid').className = 'product';
+            document.getElementById('half_year_paid').className = 'product-select';
+            document.getElementById('one_year_paid').className = 'product';
+            $("#validity_period").text("半年会员，有效期：" + addDate(180))
+        }
+
+        if (p == 'one_year_paid') {
+            payProduct = 'one_year_paid'
+            document.getElementById('one_day_paid_v1').className = 'product';
+            // document.getElementById('one_week_paid').className = 'product';
+            document.getElementById('one_month_paid').className = 'product';
+            document.getElementById('one_quarter_paid').className = 'product';
+            document.getElementById('half_year_paid').className = 'product';
+            document.getElementById('one_year_paid').className = 'product-select';
+            $("#validity_period").text("一年会员，有效期：" + addDate(365))
+        }
+
+    }
+
+
+    function tapDialogShowPaidButton() {
+        if (token.length == 0) {
+            weui.confirm('<b>微信中访问 <br/> 点击确认登录</b>', function () {
+                    window.location.href = loginLink
+                },
+                function () {
+                },
+                {title: '用户未登录'});
+            return
+        }
+
+        weui.confirm('<b>会员服务为虚拟产品<br/>支付后不支持退款</b>', function () {
+            let urlLink = host + '/v1/pay/asset/paid/product?product_type=' + payProduct + '&token=' + token + "&channel=wechat_type"
+            let prepayId
+            $.ajax({
+                url: urlLink,
+                success: function (data, status) {
+                    if (status == 'success') {
+                        prepayId = data.prepay_id
+                        WeixinJSBridge.invoke('getBrandWCPayRequest',
+                            {
+                                "timeStamp": data.timeStamp,
+                                "package": data.package,
+                                "paySign": data.paySign,
+                                "appId": data.appId,
+                                "signType": data.signType,
+                                "nonceStr": data.nonceStr,
+                            },
+                            function (res) {
+                                if (res.err_msg == "get_brand_wcpay_request:ok") {
+                                    weui.toast('支付成功', {
+                                        duration: 3000,
+                                        className: "bears"
+                                    })
+                                } else if (res.err_msg == "chooseWXPay:fail") {
+                                    weui.toast('订单支付失败', {
+                                        duration: 2000,
+                                        className: "bears"
+                                    })
+                                } else {
+                                    let closeLink = host + '/v1/pay/asset/paid/close?token=' + token + '&prepay_id=' + prepayId
+                                    $.get(closeLink, function (_data, status) {
+                                        if (status == 'success') {
+                                            weui.toast(_data.message, {
+                                                duration: 2000,
+                                                className: "bears"
+                                            })
+                                        }
+                                    })
+                                }
+                            })
+                    }
+                },
+                error: function () {
+                    weui.toast('存在生效订单', {
+                        duration: 3000,
+                        className: "error"
+                    })
+                }
+            })
+        }, function () {
+            console.log('付款取消')
+        }, {title: '确认付款'});
+    }
+</script>
+</body>
+</html>

@@ -1,12 +1,83 @@
-import React, {FC, useState} from 'react'
-import {Button} from 'antd'
+import React, {FC, useEffect, useMemo, useState} from 'react'
+import {Button, message} from 'antd'
 import less from './index.less'
 import vipRecommend from '@/assets/img/vip-recommend.svg'
-import QrCode from "@/pages/Vip/components/qrCode";
+import QrCode from "@/pages/Vip/components/qrCode"
+import qs from "qs"
+import {getAccessToken, mobilePay} from "@/services/api";
 
 const VipMobile: FC = (props) => {
     const {timeType, setTimeType, priceList, recharge} = props?.data
-    const [currentSelect, setCurrentSelect] = useState('pro')
+    const [currentSelect, setCurrentSelect] = useState('one_year_paid_pro')
+    const [token, setToken] = useState('')
+
+    useEffect(() => {
+        location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf5368c9d8cd91aef&redirect_uri=http%3A%2F%2Fmini.vcode.me%2Fvip&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect'
+    }, [])
+
+
+    useEffect(() => {
+        const query = qs.parse(location.href.split('?')[1])
+        const {code} = query
+        //
+        // getAccessToken({code}).then((res) => {
+        //     if (res?.data) {
+        //         setToken(res.token)
+        //     }
+        // })
+    }, [])
+
+    const pay = (type) => {
+        mobilePay({
+            product_type: type,
+            token,
+            channel: 'wechat_type'
+        }).then((res) => {
+            if (res?.data) {
+                const {timeStamp, package: wxPackage, paySign, appId, signType, nonceStr, prepayId} = res.data
+
+                WeixinJSBridge.invoke('getBrandWCPayRequest',
+                    {
+                        "timeStamp": timeStamp,
+                        "package": wxPackage,
+                        "paySign": paySign,
+                        "appId": appId,
+                        "signType": signType,
+                        "nonceStr": nonceStr,
+                    },
+                    function (res) {
+                        if (res.err_msg == "get_brand_wcpay_request:ok") {
+                            message.success('支付成功!', {
+                                duration: 3000,
+                            })
+                        } else if (res.err_msg == "chooseWXPay:fail") {
+                            message.fail('订单支付失败', {
+                                duration: 2000,
+                                className: "bears"
+                            })
+                        } else {
+                            let closeLink = host + '/v1/pay/asset/paid/close?token=' + token + '&prepay_id=' + prepayId
+                            $.get(closeLink, function (_data, status) {
+                                if (status == 'success') {
+                                    weui.toast(_data.message, {
+                                        duration: 2000,
+                                        className: "bears"
+                                    })
+                                }
+                            })
+                        }
+                    })
+            }
+        })
+    }
+
+    const isPro = useMemo(() => {
+        return ['one_month_paid_pro', 'one_year_paid_pro'].includes(currentSelect)
+    }, [currentSelect])
+
+    const isPlus = useMemo(() => {
+        return ['one_month_paid_pro_plus', 'one_year_paid_pro_plus'].includes(currentSelect)
+    }, [currentSelect])
 
     return (
         <div className="p-[20px] text-center">
@@ -30,8 +101,8 @@ const VipMobile: FC = (props) => {
 
                 {/* pro */}
                 <div className="flex j-c-around px-1">
-                    <div className={`${less.borderItem} ${currentSelect === 'pro' && less.active}`} onClick={() => {
-                        setCurrentSelect('pro')
+                    <div className={`${less.borderItem} ${isPro && less.active}`} onClick={() => {
+                        setCurrentSelect(priceList[timeType].pro.id)
                     }}>
                         <img className="absolute -right-5 -top-5" src={vipRecommend} alt=""/>
                         <div className="text-[14px] font-bold">ZHIKE Pro</div>
@@ -40,13 +111,13 @@ const VipMobile: FC = (props) => {
                             className="text-[22px] font-bold mb-[23px] text-[#1A8BFE]">{priceList[timeType]?.pro?.month}元 <span
                             className="text-[12px]">/月</span></div>
 
-                        <Button type={currentSelect === 'pro' ? 'primary' : 'default'} size="large" block
+                        <Button type={isPro ? 'primary' : 'default'} size="large" block
                                 onClick={() => {
-                                    recharge('pro')
+                                    pay(priceList[timeType].pro.id)
                                 }}>立即升级</Button>
                     </div>
-                    <div className={`${less.borderItem} ${currentSelect === 'pro+' && less.active}`} onClick={() => {
-                        setCurrentSelect('pro+')
+                    <div className={`${less.borderItem} ${isPlus && less.active}`} onClick={() => {
+                        setCurrentSelect(priceList[timeType].pro_plus.id)
                     }}>
                         <div className="text-[14px] font-bold">ZHIKE Pro+</div>
                         <div className="text-[11px] text-gray-400 mb-6">每天不到{priceList[timeType]?.pro_plus?.day}元
@@ -55,9 +126,9 @@ const VipMobile: FC = (props) => {
                             className="text-[22px] font-bold mb-[23px] text-[#1A8BFE]">{priceList[timeType]?.pro_plus?.month}元 <span
                             className="text-[12px]">/月</span></div>
 
-                        <Button type={currentSelect === 'pro+' ? 'primary' : 'default'} size="large" block
+                        <Button type={isPlus ? 'primary' : 'default'} size="large" block
                                 onClick={() => {
-                                    recharge('pro')
+                                    pay(priceList[timeType].pro_plus.id)
                                 }}>立即升级</Button>
                     </div>
                 </div>
