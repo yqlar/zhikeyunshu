@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useMemo, useState} from 'react'
-import {Button, message} from 'antd'
+import {Button, message, Modal} from 'antd'
 import less from './index.less'
 import vipRecommend from '@/assets/img/vip-recommend.svg'
 import QrCode from "@/pages/Vip/components/qrCode"
@@ -12,19 +12,17 @@ const VipMobile: FC = (props) => {
     const [token, setToken] = useState('')
 
     useEffect(() => {
-        location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf5368c9d8cd91aef&redirect_uri=http%3A%2F%2Fmini.vcode.me%2Fvip&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect'
-    }, [])
-
-
-    useEffect(() => {
         const query = qs.parse(location.href.split('?')[1])
         const {code} = query
-        //
-        // getAccessToken({code}).then((res) => {
-        //     if (res?.data) {
-        //         setToken(res.token)
-        //     }
-        // })
+        if (code) {
+            getAccessToken({code}).then((res) => {
+                if (res?.token) {
+                    setToken(res.token)
+                }
+            })
+        } else {
+            location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf5368c9d8cd91aef&redirect_uri=http%3A%2F%2Fmini.vcode.me%2Fvip&response_type=code&scope=snsapi_userinfo&state=STATE&connect_redirect=1#wechat_redirect'
+        }
     }, [])
 
     const pay = (type) => {
@@ -33,41 +31,56 @@ const VipMobile: FC = (props) => {
             token,
             channel: 'wechat_type'
         }).then((res) => {
-            if (res?.data) {
-                const {timeStamp, package: wxPackage, paySign, appId, signType, nonceStr, prepayId} = res.data
+            if (res?.paySign) {
+                const {timeStamp, package: wxPackage, paySign, appId, signType, nonceStr, prepayId} = res
 
-                WeixinJSBridge.invoke('getBrandWCPayRequest',
-                    {
-                        "timeStamp": timeStamp,
-                        "package": wxPackage,
-                        "paySign": paySign,
-                        "appId": appId,
-                        "signType": signType,
-                        "nonceStr": nonceStr,
-                    },
-                    function (res) {
-                        if (res.err_msg == "get_brand_wcpay_request:ok") {
-                            message.success('支付成功!', {
-                                duration: 3000,
-                            })
-                        } else if (res.err_msg == "chooseWXPay:fail") {
-                            message.fail('订单支付失败', {
-                                duration: 2000,
-                                className: "bears"
-                            })
-                        } else {
-                            let closeLink = host + '/v1/pay/asset/paid/close?token=' + token + '&prepay_id=' + prepayId
-                            $.get(closeLink, function (_data, status) {
-                                if (status == 'success') {
-                                    weui.toast(_data.message, {
-                                        duration: 2000,
-                                        className: "bears"
-                                    })
-                                }
-                            })
-                        }
-                    })
+                function onBridgeReady(){
+                    WeixinJSBridge.invoke('getBrandWCPayRequest',
+                        {
+                            "timeStamp": timeStamp,
+                            "package": wxPackage,
+                            "paySign": paySign,
+                            "appId": appId,
+                            "signType": signType,
+                            "nonceStr": nonceStr,
+                        },
+                        function (res) {
+                            console.log('-- res: ', res)
+
+                            if (res.err_msg === "get_brand_wcpay_request:ok") {
+                                Modal.success({content: '支付成功！'})
+                            } else if (res.err_msg === "chooseWXPay:fail") {
+                                Modal.error({content: '订单支付失败！'})
+                            } else {
+                                console.log('-- error: ', res)
+                                message.error(res)
+                                // let closeLink = host + '/v1/pay/asset/paid/close?token=' + token + '&prepay_id=' + prepayId
+                                // $.get(closeLink, function (_data, status) {
+                                //     if (status == 'success') {
+                                //         weui.toast(_data.message, {
+                                //             duration: 2000,
+                                //             className: "bears"
+                                //         })
+                                //     }
+                                // })
+                            }
+                        })
+                }
+                if (typeof WeixinJSBridge == "undefined"){
+                    if( document.addEventListener ){
+                        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                    }else if (document.attachEvent){
+                        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+                    }
+                }else{
+                    onBridgeReady();
+                }
+            } else {
+                message.error(res.message)
             }
+        }).catch((e) => {
+            message.error(e)
         })
     }
 
@@ -137,7 +150,7 @@ const VipMobile: FC = (props) => {
                     <a target="_blank" href="/protocol">开通前请阅读并同意《智客Ai系列会员协议》</a>
                 </div>
 
-                {currentSelect === 'pro' ?
+                {isPro ?
                     <div className="text-left">
                         <div className="text-[16px] font-medium mb-4">ZHIKE Pro 的优势：</div>
                         <div className="text-gray-600">

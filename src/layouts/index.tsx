@@ -60,13 +60,14 @@ const BasicLayout: FC = () => {
   }, [])
 
 
-  const list = ['/', '/vip', '/protocol']
+  const pcList = ['/', '/vip', '/protocol']
+  const mobileList = ['/vip', '/protocol']
 
-  if (device.mobile() && location.pathname.includes('/vip')) {
+  if (device.mobile() && mobileList.includes(location.pathname)) {
     return <Outlet/>
   }
 
-  if (list.includes(location.pathname)) {
+  if (pcList.includes(location.pathname)) {
     return <HomePageLayout>
       <Outlet/>
     </HomePageLayout>

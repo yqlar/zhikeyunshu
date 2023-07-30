@@ -247,7 +247,7 @@ export async function getAccessToken(
     },
     options?: { [key: string]: any },
 ) {
-  return request('/v1/pay/asset/paid/product', {
+  return request('/v1/web/user/login_v2', {
     method: 'GET',
     params,
     ...(options || {}),

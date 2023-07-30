@@ -5,7 +5,6 @@ import VipPc from "@/pages/Vip/pc";
 import device from 'current-device'
 import VipMobile from "@/pages/Vip/mobile";
 
-
 const Vip: FC = () => {
     const {openPriceModal, setPriceType, openLoginModal} = useModel('userModel')
     const [timeType, setTimeType] = useState<'month' | 'year'>('year')
