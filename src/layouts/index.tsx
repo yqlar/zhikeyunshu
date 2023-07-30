@@ -8,9 +8,9 @@ import ImgChat from '@/assets/img/chat.svg'
 import ImgTemplate from '@/assets/img/template.svg'
 import ImgHistory from '@/assets/img/history.svg'
 import {Menu, MenuProps} from 'antd'
-import {userLogout} from '@/services/api'
 import AddMember from '@/pages/Chat/components/AddMember'
 import HomePageLayout from "@/layouts/homePageLayout";
+import device from 'current-device'
 
 const BasicLayout: FC = () => {
   const [currentMenu, setCurrentMenu] = useState('chat')
@@ -59,7 +59,12 @@ const BasicLayout: FC = () => {
     })
   }, [])
 
+
   const list = ['/', '/vip', '/protocol']
+
+  if (device.mobile() && location.pathname.includes('/vip')) {
+    return <Outlet/>
+  }
 
   if (list.includes(location.pathname)) {
     return <HomePageLayout>
