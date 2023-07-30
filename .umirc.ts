@@ -42,6 +42,12 @@ export default defineConfig({
       layout: "@/layouts/index",
       component: "@/pages/Vip/index",
     },
+    {
+      path: "/protocol",
+      name: "协议",
+      layout: "@/layouts/index",
+      component: "@/pages/Protocol/index",
+    },
   ],
 
   npmClient: 'yarn',

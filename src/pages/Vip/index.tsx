@@ -16,12 +16,14 @@ const Vip: FC = () => {
         month: {
             pro: {
                 id: 'one_month_paid_pro',
+                name: 'ZHIKE Pro 年度会员',
                 all: '60',
                 month: '60',
                 day: '2',
             },
             pro_plus: {
                 id: 'one_month_paid_pro_plus',
+                name: 'ZHIKE Pro+ 年度会员',
                 all: '120',
                 month: '120',
                 day: '3.9'
@@ -30,12 +32,14 @@ const Vip: FC = () => {
         year: {
             pro: {
                 id: 'one_year_paid_pro',
+                name: 'ZHIKE Pro 年度会员',
                 all: '480',
                 month: '40',
                 day: '1.4'
             },
             pro_plus: {
                 id: 'one_year_paid_pro_plus',
+                name: 'ZHIKE Pro+ 年度会员',
                 all: '960',
                 month: '80',
                 day: '2.7'
@@ -72,7 +76,7 @@ const Vip: FC = () => {
                 {/* 免费 */}
                 <div className={less.vipItem}>
                     <div className="text-[20px] font-bold mb-4">Free</div>
-                    <div className="text-[46px] font-bold mb-[198px]">¥0</div>
+                    <div className="text-[30px] font-bold mb-[198px]">¥0</div>
                     <div className="text-left">
                         <div className="text-[16px] font-medium mb-4">面向所有用户的免费计划：</div>
                         <div className="text-gray-600">
@@ -93,7 +97,7 @@ const Vip: FC = () => {
                             </div>
                             <div className="mb-2">
                                 <span className="text-xs text-gray-300 mr-[10px]">●</span>
-                                <span>流量高峰期请求数量受限</span>
+                                <span>支持网页版本、Chrome/Edge浏览器插件版本 <span className="text-[#aaaaaa]">（即将）</span> </span>
                             </div>
                         </div>
                     </div>
@@ -103,9 +107,9 @@ const Vip: FC = () => {
                 <div className={less.vipItem + ' ' + less.active}>
                     <img className="absolute -right-5 -top-5" src={vipRecommend} alt=""/>
                     <div className="text-[20px] font-bold mb-4 text-[#1A8BFE]">ZHIKE Pro</div>
-                    <div className="text-[46px] font-bold mb-2">{priceList[timeType].pro.month}元 <span
-                        className="text-[30px]">/月</span></div>
-                    <div className="text-[24px] text-gray-400 mb-6">每天不到{priceList[timeType].pro.day}元</div>
+                    <div className="text-[30px] font-bold mb-2">{priceList[timeType].pro.month}元 <span
+                        className="text-[24px]">/月</span></div>
+                    <div className="text-[18px] text-gray-400 mb-6">每天不到{priceList[timeType].pro.day}元</div>
                     <Button className="mb-5" type="primary" shape="round" size="large" onClick={() => {
                         recharge('pro')
                     }}>立即升级</Button>
@@ -132,7 +136,7 @@ const Vip: FC = () => {
                                 ✅ 赠送：30 次GPT-4查询每月
                             </div>
                             <div className="pl-5 mb-2">
-                                ✅ 赠送：生成 200 张图片每月
+                                ✅ 赠送：生成 200 张图片每月<span className="text-[#aaaaaa]">（即将）</span>
                             </div>
                             <div className="mb-2">
                                 <span className="text-xs text-gray-300 mr-[10px]">●</span>
@@ -143,13 +147,13 @@ const Vip: FC = () => {
                                 <span>访问所有专业功能</span>
                             </div>
                             <div className="pl-5 mb-2">
-                                ✅ 阅读助手：使用我们的 AI 阅读 助手，在任何网页上获得即时 文章概述。
+                                ✅ ChatPDF：分析PDF文件的内 容，然后用一个文本生成的AI 来回答你的问题。<span className="text-[#aaaaaa]">（即将）</span>
                             </div>
                             <div className="pl-5 mb-2">
                                 ✅ 智能搜索：使用我们的聊天机 器人的实时网页搜索和引用的 功能简化搜索，增强准确性。
                             </div>
                             <div className="pl-5 mb-2">
-                                ✅ YouTube 摘要：简化视频摘要和亮点提取。
+                                ✅ YouTube 摘要：简化视频摘要和亮点提取。<span className="text-[#aaaaaa]">（即将）</span>
                             </div>
                             <div className="mb-2">
                                 <span className="text-xs text-gray-300 mr-[10px]">●</span>
@@ -171,9 +175,9 @@ const Vip: FC = () => {
                 {/* pro+ */}
                 <div className={less.vipItem}>
                     <div className="text-[20px] font-bold mb-4 text-[#1A8BFE]">ZHIKE Pro+</div>
-                    <div className="text-[46px] font-bold mb-2">{priceList[timeType].pro_plus.month}元 <span
-                        className="text-[30px]">/月</span></div>
-                    <div className="text-[24px] text-gray-400 mb-6">每天不到{priceList[timeType].pro_plus.day}元</div>
+                    <div className="text-[30px] font-bold mb-2">{priceList[timeType].pro_plus.month}元 <span
+                        className="text-[24px]">/月</span></div>
+                    <div className="text-[18px] text-gray-400 mb-6">每天不到{priceList[timeType].pro_plus.day}元</div>
                     <Button className="mb-5" type="primary" shape="round" size="large" onClick={() => {
                         recharge('pro_plus')
                     }}>立即升级</Button>
@@ -195,7 +199,7 @@ const Vip: FC = () => {
                                 ✅ 6000 次查询每月
                             </div>
                             <div className="pl-5 mb-2">
-                                ✅ 赠送：60 次GPT-4查询每月
+                                ✅ 赠送：60 次GPT-4查询每月<span className="text-[#aaaaaa]">（即将）</span>
                             </div>
                             <div className="pl-5 mb-2">
                                 ✅ 赠送：生成 400 张图片每月

@@ -2,6 +2,7 @@ import {FC} from 'react'
 import GuideSearch from '@/assets/img/guide-search.png'
 import GuideLongContent from '@/assets/img/guide-long-content.png'
 import GuideSuggest from '@/assets/img/guide-suggest.png'
+import GuideLaw from '@/assets/img/guide-law.png'
 
 interface Props {
   updateInput(x: string): void
@@ -31,6 +32,14 @@ const Guide: FC = (props:Props) => {
       template: [
         '"为时装周生成10个适用于小红书的标题"',
         '"用乔布斯的风格为自行车写一篇产品描述"',
+      ],
+    },
+    {
+      img: GuideLaw,
+      title: '法律咨询',
+      template: [
+        '"工作中受伤但企业未缴纳工伤保险可以要求赔偿吗？"',
+        '"追索劳动报酬要求先向劳动仲裁申请裁决吗？"',
       ],
     },
   ]

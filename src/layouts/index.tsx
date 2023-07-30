@@ -4,7 +4,6 @@ import {history, Outlet, useLocation, useModel} from 'umi'
 import Logo from '@/components/logo'
 import UserInfo from '@/pages/Chat/components/UserInfo'
 import TemplatesModal from '@/pages/Chat/components/TemplatesModal'
-import PriceModal from '@/components/PriceModal'
 import ImgChat from '@/assets/img/chat.svg'
 import ImgTemplate from '@/assets/img/template.svg'
 import ImgHistory from '@/assets/img/history.svg'
@@ -60,7 +59,9 @@ const BasicLayout: FC = () => {
     })
   }, [])
 
-  if (location.pathname === '/' || location.pathname === '/vip') {
+  const list = ['/', '/vip', '/protocol']
+
+  if (list.includes(location.pathname)) {
     return <HomePageLayout>
       <Outlet/>
     </HomePageLayout>
@@ -85,7 +86,6 @@ const BasicLayout: FC = () => {
         <Outlet/>
       </div>
       <TemplatesModal/>
-      <PriceModal/>
     </div>
   </div>
 }
