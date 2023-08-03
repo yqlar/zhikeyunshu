@@ -1,4 +1,4 @@
-import {FC} from 'react'
+import {FC, useEffect, useState} from 'react'
 import less from './index.less'
 import Logo from '@/components/logo'
 import type {MenuProps} from 'antd'
@@ -8,6 +8,7 @@ import {isLogin} from "@/utils";
 
 const HomePageHeader: FC = () => {
     const {openLoginModal} = useModel('userModel')
+    const [selectedMenu, setSelectedMenu] = useState('')
 
     const items: MenuProps['items'] = [
         {
@@ -36,16 +37,23 @@ const HomePageHeader: FC = () => {
   ]
 
   const menuAction = (data) => {
-    const item = items.find(x => x.key === data.key)
-    history.push(item.url)
+      const item = items.find(x => x.key === data.key)
+      setSelectedMenu(item.key)
+      history.push(item.url)
   }
+
+  useEffect(() => {
+      if (history.location.pathname.includes('vip')) {
+          setSelectedMenu('vip')
+      }
+  }, [])
 
   return (
     <div className={less.header}>
         <Logo/>
         <div className={less.menu}>
 
-            <Menu mode="horizontal" items={items} onClick={menuAction}/>
+            <Menu mode="horizontal" items={items} onClick={menuAction} selectedKeys={[selectedMenu]}/>
             <Button type="primary" shape="round" size="large"
                     onClick={() => {
                         isLogin() ? history.push('/chat') : openLoginModal()

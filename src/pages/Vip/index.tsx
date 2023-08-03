@@ -57,8 +57,9 @@ const Vip: FC = () => {
     return (
         <>
             {
+
                 device.mobile() ?
-                    <VipMobile data={{timeType, setTimeType, priceList, recharge}}/> :
+                    <VipMobile data={{timeType, setTimeType, priceList}}/> :
                     <VipPc data={{timeType, setTimeType, priceList, recharge}}/>
             }
         </>

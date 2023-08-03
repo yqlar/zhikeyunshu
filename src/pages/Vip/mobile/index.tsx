@@ -7,7 +7,7 @@ import qs from "qs"
 import {getAccessToken, mobilePay} from "@/services/api";
 
 const VipMobile: FC = (props) => {
-    const {timeType, setTimeType, priceList, recharge} = props?.data
+    const {timeType, setTimeType, priceList} = props?.data
     const [currentSelect, setCurrentSelect] = useState('one_year_paid_pro')
     const [token, setToken] = useState('')
 
@@ -45,14 +45,11 @@ const VipMobile: FC = (props) => {
                             "nonceStr": nonceStr,
                         },
                         function (res) {
-                            console.log('-- res: ', res)
-
                             if (res.err_msg === "get_brand_wcpay_request:ok") {
                                 Modal.success({content: '支付成功！'})
                             } else if (res.err_msg === "chooseWXPay:fail") {
                                 Modal.error({content: '订单支付失败！'})
                             } else {
-                                console.log('-- error: ', res)
                                 message.error(res)
                                 // let closeLink = host + '/v1/pay/asset/paid/close?token=' + token + '&prepay_id=' + prepayId
                                 // $.get(closeLink, function (_data, status) {
@@ -163,9 +160,11 @@ const VipMobile: FC = (props) => {
                             </div>
                             <div className="pl-5 mb-2">
                                 ✅ 赠送：30 次GPT-4查询每月
+                                <span className="text-[#aaaaaa]">（即将）</span>
                             </div>
                             <div className="pl-5 mb-2">
-                                ✅ 赠送：生成 200 张图片每月<span className="text-[#aaaaaa]">（即将）</span>
+                                ✅ 赠送：生成 200 张图片每月
+                                <span className="text-[#aaaaaa]">（即将）</span>
                             </div>
                             <div className="mb-2">
                                 <span className="text-xs text-gray-300 mr-[10px]">●</span>
@@ -214,7 +213,7 @@ const VipMobile: FC = (props) => {
                                 ✅ 赠送：60 次GPT-4查询每月<span className="text-[#aaaaaa]">（即将）</span>
                             </div>
                             <div className="pl-5 mb-2">
-                                ✅ 赠送：生成 400 张图片每月
+                                ✅ 赠送：生成 400 张图片每月<span className="text-[#aaaaaa]">（即将）</span>
                             </div>
                             <div className="mb-2">
                                 <span className="text-xs text-gray-300 mr-[10px]">●</span>

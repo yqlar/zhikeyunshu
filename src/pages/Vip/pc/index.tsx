@@ -1,4 +1,4 @@
-import {FC, useState} from 'react'
+import React, {FC, useState} from 'react'
 import {Button} from 'antd'
 import less from './index.less'
 import wechat from '@/assets/img/wechat.svg'
@@ -86,6 +86,7 @@ const VipPc: FC = (props) => {
                             </div>
                             <div className="pl-5 mb-2">
                                 ✅ 赠送：30 次GPT-4查询每月
+                                <span className="text-[#aaaaaa]">（即将）</span>
                             </div>
                             <div className="pl-5 mb-2">
                                 ✅ 赠送：生成 200 张图片每月<span className="text-[#aaaaaa]">（即将）</span>
@@ -154,7 +155,7 @@ const VipPc: FC = (props) => {
                                 ✅ 赠送：60 次GPT-4查询每月<span className="text-[#aaaaaa]">（即将）</span>
                             </div>
                             <div className="pl-5 mb-2">
-                                ✅ 赠送：生成 400 张图片每月
+                                ✅ 赠送：生成 400 张图片每月<span className="text-[#aaaaaa]">（即将）</span>
                             </div>
                             <div className="mb-2">
                                 <span className="text-xs text-gray-300 mr-[10px]">●</span>

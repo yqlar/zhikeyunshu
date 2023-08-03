@@ -101,9 +101,6 @@ const ChatInput: FC<Props> = (props) => {
           </Button>
         </div>
       </div>
-      <div className={less.tips}>
-        聊天目前处于测试阶段，遇到问题请给我们反馈
-      </div>
     </div>
 
   )
