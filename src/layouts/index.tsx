@@ -7,6 +7,7 @@ import TemplatesModal from '@/pages/Chat/components/TemplatesModal'
 import ImgChat from '@/assets/img/chat.svg'
 import ImgTemplate from '@/assets/img/template.svg'
 import ImgHistory from '@/assets/img/history.svg'
+import ImgUserCenter from '@/assets/img/usercenter.svg'
 import {Menu, MenuProps} from 'antd'
 import AddMember from '@/pages/Chat/components/AddMember'
 import HomePageLayout from "@/layouts/homePageLayout";
@@ -33,6 +34,12 @@ const BasicLayout: FC = () => {
       key: 'history',
       path: '/chat-history',
       icon: (<img className={less.menuIcon} src={ImgHistory} alt=""/>),
+    },
+    {
+      label: '用户中心',
+      key: 'userCenter',
+      path: '/user-center',
+      icon: (<img className={less.menuIcon} src={ImgUserCenter} alt=""/>),
     },
   ]
 

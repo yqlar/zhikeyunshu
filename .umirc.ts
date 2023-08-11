@@ -48,6 +48,12 @@ export default defineConfig({
       layout: "@/layouts/index",
       component: "@/pages/Protocol/index",
     },
+    {
+      path: "/user-center",
+      name: "用户中心",
+      layout: "@/layouts/index",
+      component: "@/pages/UserCenter/index",
+    },
   ],
 
   npmClient: 'yarn',
