@@ -1,4 +1,5 @@
 import {Button, Card, Table} from "antd";
+import {history} from 'umi'
 import gpt3 from './gpt3.svg'
 import gpt4 from './gpt4.svg'
 import {useEffect, useState} from "react";
@@ -56,26 +57,36 @@ const UserCenter = () => {
         })
     }, [])
 
-    return <div className="px-[40px] py-[30px]">
+    return <div className="px-[40px] py-[30px] overflow-y-auto h-[calc(100vh-80px)]">
         <div className="font-[20px] font-bold mb-[32px]">计费</div>
 
         <div className="flex j-c-around ">
             <Card style={{width: 455, marginRight: '10px'}}>
-                {userData.membership.paid_product_type !== '' ? <>
-                    <div className="text-[20px] font-bold text-[#9e9e9e]">目前，您使用的是 <span className="text-[rgba(26,139,254,1)]">{userData.membership.paid_product_type}</span>，感谢您支持我们的持续发展。</div>
+                {userData.membership?.paid_product_type !== '' ? <>
+                    <div className="text-[20px] font-bold text-[#9e9e9e]">目前，您使用的是 <span
+                        className="text-[rgba(26,139,254,1)]">{userData.membership.paid_product_type}</span>，感谢您支持我们的持续发展。
+                    </div>
                     <div className="mt-[80px] flex items-center justify-between">
-                        <div className="text-[#9E9E9E]">会员计划到期时间: {userData.membership.end_time.split(' ')[0]}</div>
-                        <Button shape="round"  type="primary">
+                        <div
+                            className="text-[#9E9E9E]">会员计划到期时间: {userData.membership.end_time.split(' ')[0]}</div>
+                        <Button shape="round" type="primary" onClick={() => {
+                            history.push('/vip')
+                        }}>
                             立即续费
                         </Button>
                     </div>
                 </> : <>
 
                     <div className="text-[#9e9e9e] text-[20px] font-bold">目前，您使用的是 <span
-                        className="text-[#15BA11]">免费计划</span>，没有与之相关的账单信息。 可以升级到我们的高级计划以解锁更多功能并支持我们的持续发展。
+                        className="text-[#15BA11]">免费计划</span>，没有与之相关的账单信息。
+                        可以升级到我们的高级计划以解锁更多功能并支持我们的持续发展。
                     </div>
-                    <div className="text-center mt-[24px]"><Button size="large" type="primary"
-                                                                   shape="round">立即升级</Button></div></> }
+                    <div className="text-center mt-[24px]">
+                        <Button size="large" type="primary"
+                                shape="round" onClick={() => {
+                            history.push('/vip')
+                        }}>立即升级</Button></div>
+                </>}
             </Card>
             <Card style={{width: 455}}>
                 <div className="flex j-c-start w-full pb-[24px] border-b-[1px] border-b-[rgba(51,51,51,0.3)] mb-[24px]">
