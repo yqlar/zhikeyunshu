@@ -62,13 +62,13 @@ const UserCenter = () => {
 
         <div className="flex j-c-around ">
             <Card style={{width: 455, marginRight: '10px'}}>
-                {userData.membership?.paid_product_type !== '' ? <>
+                {userData?.membership?.paid_product_type ? <>
                     <div className="text-[20px] font-bold text-[#9e9e9e]">目前，您使用的是 <span
-                        className="text-[rgba(26,139,254,1)]">{userData.membership.paid_product_type}</span>，感谢您支持我们的持续发展。
+                        className="text-[rgba(26,139,254,1)]">{userData?.membership?.paid_product_type}</span>，感谢您支持我们的持续发展。
                     </div>
                     <div className="mt-[80px] flex items-center justify-between">
                         <div
-                            className="text-[#9E9E9E]">会员计划到期时间: {userData.membership.end_time.split(' ')[0]}</div>
+                            className="text-[#9E9E9E]">会员计划到期时间: {userData?.membership?.end_time.split(' ')[0]}</div>
                         <Button shape="round" type="primary" onClick={() => {
                             history.push('/vip')
                         }}>
@@ -90,7 +90,7 @@ const UserCenter = () => {
             </Card>
             <Card style={{width: 455}}>
                 <div className="flex j-c-start w-full pb-[24px] border-b-[1px] border-b-[rgba(51,51,51,0.3)] mb-[24px]">
-                    <div className="mr-[24px] w-[60px] text-center">
+                    <div className="mr-[24px] w-[60px] text-center flex-shrink-0">
                         <div className="text-center">
                             <img src={gpt3} alt=""/>
                         </div>
@@ -102,14 +102,14 @@ const UserCenter = () => {
                             <div className="mt-[10px]">额外</div>
                         </div>
                         <div className="text-[#9E9E9E]">
-                            <div>剩余{userData.usage.gpt_3}条</div>
-                            <div className="mt-[10px]">剩余{userData.usage.gpt_3_extra}条</div>
+                            <div>剩余{userData?.usage.gpt_3}条</div>
+                            <div className="mt-[10px]">剩余{userData?.usage.gpt_3_extra}条</div>
                         </div>
                     </div>
                 </div>
 
                 <div className="flex j-c-start w-full">
-                    <div className="mr-[24px] w-[60px] text-center">
+                    <div className="mr-[24px] w-[60px] text-center flex-shrink-0">
                         <div>
                             <img src={gpt4} alt=""/>
                         </div>
@@ -121,8 +121,8 @@ const UserCenter = () => {
                             <div className="mt-[10px]">额外</div>
                         </div>
                         <div className="text-[#9E9E9E]">
-                            <div>剩余{userData.usage.gpt_4}条</div>
-                            <div className="mt-[10px]">剩余{userData.usage.gpt_4_extra}条</div>
+                            <div>剩余{userData?.usage.gpt_4}条</div>
+                            <div className="mt-[10px]">剩余{userData?.usage.gpt_4_extra}条</div>
                         </div>
                     </div>
                 </div>

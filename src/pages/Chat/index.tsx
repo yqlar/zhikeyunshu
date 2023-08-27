@@ -31,6 +31,8 @@ const Chat: FC = () => {
   const [editChat, setEditChat] = useState<ChatItem | null>(null)
   const [inputValue, setInputValue] = useState<string>('')
   const [chatPage, setChatPage] = useState(1)
+  const [isOnline, setIsOnline] = useState(false)
+  const [chatModel, setChatModel] = useState<'gpt3' | 'gpt4'>('gpt3')
   const query = queryString.parse(history.location.search)
   const {chat_id} = query
 
@@ -87,6 +89,8 @@ const Chat: FC = () => {
         chat_id: chatId,
         text: d,
         type: 'text',
+        online: isOnline,
+        model: chatModel
       }),
       redirect: 'follow',
       method: 'POST',
@@ -264,7 +268,7 @@ const Chat: FC = () => {
           </div>
         </div>
         <div className={less.input}>
-          <ChatInput loading={loading} send={sendData} continueChat={continueChat} inputValue={inputValue}/>
+          <ChatInput switchChange={setIsOnline} loading={loading} send={sendData} continueChat={continueChat} inputValue={inputValue}/>
         </div>
       </div>
 
