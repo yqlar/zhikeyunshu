@@ -118,7 +118,7 @@ const BasicLayout: FC = () => {
         <div className={less.right}>
           <div className={less.head}>
             <div>
-              <Select defaultValue={gptModel} options={gptOptions} onChange={setGptModel}></Select>
+              <Select value={gptModel} options={gptOptions} onChange={setGptModel}></Select>
             </div>
             <AddMember />
           </div>

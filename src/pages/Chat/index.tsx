@@ -15,7 +15,7 @@ import { ErrorCode } from '@/enum/ErrorCode'
 import NoVipTipsModal from '@/components/noVipTipsModal'
 
 const Chat: FC = () => {
-  const { templateContent, showContinueButton, gptModel } = useModel('chatModel')
+  const { templateContent, showContinueButton, gptModel, setGptModel } = useModel('chatModel')
   const { openNoVipTipsModal } = useModel('userModel')
   const [chatList, setChatList] = useState([])
   const [currentChatId, setCurrentChatId] = useState<number>(0)
@@ -191,6 +191,8 @@ const Chat: FC = () => {
           })
         })
         setChatList(arr)
+        console.log('3333', res[0].model)
+        setGptModel(res[0].model)
         setChatPage(chatPage + 1)
       }
       const clear = setTimeout(() => {
@@ -224,6 +226,7 @@ const Chat: FC = () => {
     setCurrentChatId(0)
     setChatList([])
     setChatPage(0)
+    setGptModel('gpt3')
   }
 
   // 继续请求对话
@@ -231,14 +234,12 @@ const Chat: FC = () => {
     const res = api.continueChat({
       chat_id: currentChatId,
     })
-    console.log('-- continueChat: ', res)
   }
 
   useEffect(() => {
     if (chat_id) {
       setCurrentChatId(Number(chat_id))
       getHistory(chat_id)
-      // getRichEdit(chat_id)
     } else {
       resetChat()
     }
