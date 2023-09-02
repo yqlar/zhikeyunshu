@@ -1,14 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="24"
-     height="24" viewBox="0 0 24 24">
-    <defs>
-        <clipPath id="master_svg0_89_24317">
-            <rect x="0" y="0" width="24" height="24" rx="0"/>
-        </clipPath>
-    </defs>
-    <g clip-path="url(#master_svg0_89_24317)">
-        <g>
-            <path d="M2,19L22,19L22,21L2,21L2,19ZM2,5L7,8L12,2L17,8L22,5L22,17L2,17L2,5Z" fill="#FFFFFF"
-                  fill-opacity="1"/>
-        </g>
+;<svg
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  fill="none"
+  version="1.1"
+  width="24"
+  height="24"
+  viewBox="0 0 24 24"
+>
+  <defs>
+    <clipPath id="master_svg0_89_24317">
+      <rect x="0" y="0" width="24" height="24" rx="0" />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#master_svg0_89_24317)">
+    <g>
+      <path d="M2,19L22,19L22,21L2,21L2,19ZM2,5L7,8L12,2L17,8L22,5L22,17L2,17L2,5Z" fill="#FFFFFF" fill-opacity="1" />
     </g>
+  </g>
 </svg>
