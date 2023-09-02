@@ -3,7 +3,7 @@ import React from 'react'
 import styles from './Guide.less'
 
 interface Props {
-  name: string;
+  name: string
 }
 
 // 脚手架示例组件

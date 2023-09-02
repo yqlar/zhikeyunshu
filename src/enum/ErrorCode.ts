@@ -1,3 +1,3 @@
 export enum ErrorCode {
-    NO_VIP = '800'
+  NO_VIP = '800',
 }

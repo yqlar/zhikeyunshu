@@ -15,22 +15,21 @@ import { ErrorCode } from '@/enum/ErrorCode'
 import NoVipTipsModal from '@/components/noVipTipsModal'
 
 const Chat: FC = () => {
-  const { templateContent, showContinueButton } = useModel('chatModel')
+  const { templateContent, showContinueButton, gptModel } = useModel('chatModel')
   const { openNoVipTipsModal } = useModel('userModel')
   const [chatList, setChatList] = useState([])
-  const [currentChatId, setCurrentChatId] = useState < number > 0
-  const [currentChat, setCurrentChat] = (useState < ChatItem) | (null > null)
-  const [currentChatTitle, setCurrentChatTitle] = useState < string > ''
+  const [currentChatId, setCurrentChatId] = useState<number>(0)
+  const [currentChat, setCurrentChat] = useState<ChatItem | null>(null)
+  const [currentChatTitle, setCurrentChatTitle] = useState<string>('')
   const scrollContainerRef = useRef(null)
   const scrollPlaceholder = useRef(null)
   const [loading, setLoading] = useState(false)
   const [historyLoading, setHistoryLoading] = useState(false)
   const [editVisible, setEditVisible] = useState(false)
-  const [editChat, setEditChat] = (useState < ChatItem) | (null > null)
-  const [inputValue, setInputValue] = useState < string > ''
+  const [editChat, setEditChat] = useState<ChatItem | null>(null)
+  const [inputValue, setInputValue] = useState<string>('')
   const [chatPage, setChatPage] = useState(1)
   const [isOnline, setIsOnline] = useState(false)
-  const [chatModel, setChatModel] = (useState < 'gpt3') | ('gpt4' > 'gpt3')
   const query = queryString.parse(history.location.search)
   const { chat_id } = query
 
@@ -88,7 +87,7 @@ const Chat: FC = () => {
         text: d,
         type: 'text',
         online: isOnline,
-        model: chatModel,
+        model: gptModel,
       }),
       redirect: 'follow',
       method: 'POST',

@@ -5,6 +5,7 @@ import { isLogin } from '@/utils'
 const chatModel = () => {
   const [templateModalVisible, setTemplateModalVisible] = useState(false)
   const [continueButtonVisible, setContinueButtonVisible] = useState(false)
+  const [gptModel, setGptModel] = useState('gpt3')
   const [templateContent, setTemplateContent] = useState('')
   const openTemplateModal = () => {
     if (isLogin()) {
@@ -32,6 +33,8 @@ const chatModel = () => {
     continueButtonVisible,
     hideContinueButton,
     showContinueButton,
+    gptModel,
+    setGptModel,
   }
 }
 

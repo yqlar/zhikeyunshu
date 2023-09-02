@@ -4,11 +4,11 @@ import TemplateCard from '@/components/TemplateCard'
 import { TemplateItem } from '@/interface/templates'
 
 interface Props {
-  templateOnClick(x: TemplateItem): void;
+  templateOnClick(x: TemplateItem): void
 }
 
 const TemplateList: FC<Props> = props => {
-  const [select, setSelect] = useState < number > -1
+  const [select, setSelect] = useState<number>(-1)
   const list: TemplateItem[] = [
     {
       name: 'Blog Post Wizard',

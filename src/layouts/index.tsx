@@ -12,10 +12,11 @@ import { Menu, MenuProps, Select } from 'antd'
 import AddMember from '@/pages/Chat/components/AddMember'
 import HomePageLayout from '@/layouts/homePageLayout'
 import device from 'current-device'
-
+import gpt3 from '@/assets/img/gpt-3.5.svg'
+import gpt4 from '@/assets/img/gpt-4.svg'
 const BasicLayout: FC = () => {
   const [currentMenu, setCurrentMenu] = useState('chat')
-  const { openTemplateModal } = useModel('chatModel')
+  const { openTemplateModal, gptModel, setGptModel } = useModel('chatModel')
   const location = useLocation()
   const MentItems: MenuProps['items'] = [
     {
@@ -81,6 +82,27 @@ const BasicLayout: FC = () => {
     )
   }
 
+  const gptOptions = [
+    {
+      label: (
+        <span className="flex items-center gap-2">
+          <img className="w-[14px] h-[14px]" src={gpt3} alt="" />
+          <span>GPT-3.5</span>
+        </span>
+      ),
+      value: 'gpt3',
+    },
+    {
+      label: (
+        <span className="flex items-center gap-2">
+          <img className="w-[14px] h-[14px]" src={gpt4} alt="" />
+          <span>GPT-4</span>
+        </span>
+      ),
+      value: 'gpt4',
+    },
+  ]
+
   return (
     <div className={less.layout}>
       <div className={less.page}>
@@ -96,7 +118,7 @@ const BasicLayout: FC = () => {
         <div className={less.right}>
           <div className={less.head}>
             <div>
-              <Select></Select>
+              <Select defaultValue={gptModel} options={gptOptions} onChange={setGptModel}></Select>
             </div>
             <AddMember />
           </div>

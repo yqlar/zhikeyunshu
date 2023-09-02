@@ -1,20 +1,15 @@
-import {FC, useEffect, useState} from 'react'
+import { FC, useEffect, useState } from 'react'
 import {Button, Input, Switch} from 'antd'
 import less from './index.less'
 import promptIcon from '@/assets/img/prompt.svg'
 import sendIcon from '@/assets/img/send.svg'
-import {history, useModel} from 'umi'
+import { history, useModel } from 'umi'
 
 interface Props {
-    send(t: string): void
-
-    inputValue: string
-
-    continueChat(): void
-
-    loading: boolean
-
-    switchChange(val: boolean): void
+  send(t: string): void
+  inputValue: string
+  continueChat(): void
+  loading: boolean
 }
 
 const {TextArea} = Input
@@ -43,30 +38,30 @@ const ChatInput: FC<Props> = (props) => {
         handelDisable(chatContent)
     }, [props.loading])
 
-    const inputChange = (e) => {
-        handelDisable(e.target.value)
-        setChatContent(e.target.value)
-    }
+  const inputChange = e => {
+    handelDisable(e.target.value)
+    setChatContent(e.target.value)
+  }
 
-    const handelDisable = (d) => {
-        setDisable(d === '' || props.loading)
+  const handelDisable = (d) => {
+    setDisable(d === '' || props.loading)
+  }
+  const sendData = () => {
+    if (!disable) {
+      props.send(chatContent)
+      setChatContent('')
+      setDisable(true)
     }
-    const sendData = () => {
-        if (!disable) {
-            props.send(chatContent)
-            setChatContent('')
-            setDisable(true)
-        }
-    }
+  }
 
-    const keyUpAction = (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-            sendData()
-            e.cancelBubble = true
-            e.preventDefault()
-            e.stopPropagation()
-        }
+  const keyUpAction = (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      sendData()
+      e.cancelBubble = true
+      e.preventDefault()
+      e.stopPropagation()
     }
+  }
 
     const onChange = (val) => {
         console.log(val)

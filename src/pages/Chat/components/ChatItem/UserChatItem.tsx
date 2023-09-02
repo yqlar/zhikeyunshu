@@ -1,11 +1,9 @@
 import { FC } from 'react'
 import less from './index.less'
 import userHead from '@/assets/img/user-head.png'
-
 interface Props {
-  data: string;
+  data: string
 }
-
 const UserChatItem: FC<Props> = props => {
   return (
     <div className={less.chatItem}>

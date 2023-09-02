@@ -8,7 +8,10 @@
       }
     }
   ],
-  "plugins": ["prettier-plugin-organize-imports", "prettier-plugin-packagejson"],
+  "plugins": [
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-packagejson"
+  ],
   "printWidth": 120,
   "tabWidth": 2,
   "useTabs": false,
@@ -17,14 +20,16 @@
   "proseWrap": "preserve",
   "arrowParens": "avoid",
   "bracketSpacing": true,
-  "disableLanguages": ["vue"],
+  "disableLanguages": [
+    "vue"
+  ],
   "endOfLine": "auto",
   "eslintIntegration": false,
   "htmlWhitespaceSensitivity": "ignore",
   "ignorePath": ".prettierignore",
   "jsxBracketSameLine": false,
   "jsxSingleQuote": false,
-  "parser": "babel",
+  "parser": "babel-ts",
   "requireConfig": false,
   "stylelintIntegration": false,
   "tslintIntegration": false

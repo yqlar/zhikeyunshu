@@ -1,9 +1,6 @@
+/** @type {import('tailwindcss').config}*/
 module.exports = {
-  content: [
-    './src/pages/**/*.tsx',
-    './src/components/**/*.tsx',
-    './src/layouts/**/*.tsx',
-  ],
+  content: ['./src/**/*.tsx'],
   corePlugins: {
     preflight: false
   }

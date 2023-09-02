@@ -10,7 +10,7 @@ import { isLogin } from '@/utils'
 
 const HomePage: React.FC = () => {
   const { openLoginModal, closeLoginModal } = useModel('userModel')
-  const [qrCodeUrl, setQrCodeUrl] = (useState < string) | (null > null)
+  const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null)
 
   const headerStyle: React.CSSProperties = {
     color: cssVariables.fontColorMain,
