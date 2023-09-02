@@ -3,21 +3,21 @@ import {getLocalStorage} from '@/utils/localCache'
 import {isLogin} from '@/utils'
 
 export const Auth = (Component) => () => {
-  const pathname = useLocation().pathname
+    const pathname = useLocation().pathname
 
-  if (isLogin()) {
-    if (pathname !== '/') {
-      return <Component/>
+    if (isLogin()) {
+        if (pathname !== '/') {
+            return <Component/>
+        } else {
+            return <Navigate to="/chat"/>
+        }
     } else {
-      return <Navigate to="/chat"/>
+        if (pathname === '/') {
+            return <Component/>
+        } else {
+            return <Navigate to="/"/>
+        }
     }
-  } else {
-    if (pathname === '/') {
-      return <Component/>
-    } else {
-      return <Navigate to="/"/>
-    }
-  }
 }
 
 

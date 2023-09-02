@@ -32,11 +32,11 @@ const HomePageLayout: React.FC = (props: {
 
     return (
         <Space direction="vertical" style={{width: '100%'}} size={[0, 48]}>
-            <LoginModal />
+            <LoginModal/>
 
             <Layout>
                 <Header style={headerStyle}>
-                    <HomePageHeader />
+                    <HomePageHeader/>
                 </Header>
                 <Content style={contentStyle}>
                     {props.children}

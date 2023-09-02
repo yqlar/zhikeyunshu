@@ -49,7 +49,8 @@ const VipPc: FC = (props) => {
                             </div>
                             <div className="mb-2">
                                 <span className="text-xs text-gray-300 mr-[10px]">●</span>
-                                <span>支持网页版本、Chrome/Edge浏览器插件版本 <span className="text-[#aaaaaa]">（即将）</span> </span>
+                                <span>支持网页版本、Chrome/Edge浏览器插件版本 <span
+                                    className="text-[#aaaaaa]">（即将）</span> </span>
                             </div>
                         </div>
                     </div>
@@ -100,7 +101,8 @@ const VipPc: FC = (props) => {
                                 <span>访问所有专业功能</span>
                             </div>
                             <div className="pl-5 mb-2">
-                                ✅ ChatPDF：分析PDF文件的内 容，然后用一个文本生成的AI 来回答你的问题。<span className="text-[#aaaaaa]">（即将）</span>
+                                ✅ ChatPDF：分析PDF文件的内 容，然后用一个文本生成的AI 来回答你的问题。<span
+                                className="text-[#aaaaaa]">（即将）</span>
                             </div>
                             <div className="pl-5 mb-2">
                                 ✅ 智能搜索：使用我们的聊天机 器人的实时网页搜索和引用的 功能简化搜索，增强准确性。

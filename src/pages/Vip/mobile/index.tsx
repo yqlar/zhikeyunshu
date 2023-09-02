@@ -34,7 +34,7 @@ const VipMobile: FC = (props) => {
             if (res?.paySign) {
                 const {timeStamp, package: wxPackage, paySign, appId, signType, nonceStr, prepayId} = res
 
-                function onBridgeReady(){
+                function onBridgeReady() {
                     WeixinJSBridge.invoke('getBrandWCPayRequest',
                         {
                             "timeStamp": timeStamp,
@@ -63,14 +63,15 @@ const VipMobile: FC = (props) => {
                             }
                         })
                 }
-                if (typeof WeixinJSBridge == "undefined"){
-                    if( document.addEventListener ){
+
+                if (typeof WeixinJSBridge == "undefined") {
+                    if (document.addEventListener) {
                         document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-                    }else if (document.attachEvent){
+                    } else if (document.attachEvent) {
                         document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
                         document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
                     }
-                }else{
+                } else {
                     onBridgeReady();
                 }
             } else {
