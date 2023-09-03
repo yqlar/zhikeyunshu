@@ -103,6 +103,7 @@ const BasicLayout: FC = () => {
     },
   ]
 
+
   return (
     <div className={less.layout}>
       <div className={less.page}>
@@ -118,7 +119,9 @@ const BasicLayout: FC = () => {
         <div className={less.right}>
           <div className={less.head}>
             <div>
-              <Select value={gptModel} options={gptOptions} onChange={setGptModel}></Select>
+              {(location.pathname === '/chat' ||location.pathname === '/chat/') &&
+                <Select value={gptModel} options={gptOptions} onChange={setGptModel}></Select>
+              }
             </div>
             <AddMember />
           </div>

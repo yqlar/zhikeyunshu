@@ -35,7 +35,7 @@ const ChatHistory: FC = () => {
   }
 
   return (
-    <div class={less.container}>
+    <div className={less.container}>
       <div className={less.list}>
         {chatList?.length > 0 &&
           chatList.map(item => (
